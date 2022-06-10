@@ -41,6 +41,36 @@
           </template>
         </a-input-password>
       </a-form-item>
+      <a-form-item
+        field="captchaId"
+        :rules="[{ required: true, message: $t('login.form.captchaId.errMsg') }]"
+        :validate-trigger="['change', 'blur']"
+        hide-label
+      >
+        <a-input
+          v-model="userInfo.captchaId"
+          :placeholder="$t('login.form.captchaId.placeholder')"
+        >
+          <template #prefix>
+            <icon-user />
+          </template>
+        </a-input>
+      </a-form-item>
+      <a-form-item
+        field="captcha"
+        :rules="[{ required: true, message: $t('login.form.captcha.errMsg') }]"
+        :validate-trigger="['change', 'blur']"
+        hide-label
+      >
+        <a-input
+          v-model="userInfo.captcha"
+          :placeholder="$t('login.form.captcha.placeholder')"
+        >
+          <template #prefix>
+            <icon-user />
+          </template>
+        </a-input>
+      </a-form-item>
       <a-space :size="16" direction="vertical">
         <div class="login-form-password-actions">
           <a-checkbox
@@ -83,11 +113,15 @@
   const loginConfig = useStorage('login-config', {
     rememberPassword: true,
     username: 'admin', // 演示默认值
-    password: 'admin', // demo default value
+    password: '123456', // demo default value
+    captchaId: '8dUax8dNMvXsOy8VOJss',
+    captcha: '12435',
   });
   const userInfo = reactive({
     username: loginConfig.value.username,
     password: loginConfig.value.password,
+    captchaId: loginConfig.value.captchaId,
+    captcha: loginConfig.value.captcha,
   });
 
   const handleSubmit = async ({
@@ -110,11 +144,13 @@
         });
         Message.success(t('login.form.login.success'));
         const { rememberPassword } = loginConfig.value;
-        const { username, password } = values;
+        const { username, password, captchaId, captcha} = values;
         // 实际生产环境需要进行加密存储。
         // The actual production environment requires encrypted storage.
         loginConfig.value.username = rememberPassword ? username : '';
         loginConfig.value.password = rememberPassword ? password : '';
+        loginConfig.value.captchaId = rememberPassword ? captchaId : '';
+        loginConfig.value.captcha = rememberPassword ? captcha : '';
       } catch (err) {
         errorMessage.value = (err as Error).message;
       } finally {

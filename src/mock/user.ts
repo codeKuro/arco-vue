@@ -8,6 +8,7 @@ import { MockParams } from '@/types/mock';
 import { isLogin } from '@/utils/auth';
 
 setupMock({
+  // mock: false,
   setup() {
     // Mock.XHR.prototype.withCredentials = true;
 
@@ -66,7 +67,7 @@ setupMock({
       return successResponseWrap(null);
     });
 
-    // 登出
+    // 获取服务端菜单
     Mock.mock(new RegExp('/api/user/menu'), () => {
       const menuList = [
         {
@@ -94,14 +95,6 @@ setupMock({
                 locale: 'menu.server.monitor',
                 requiresAuth: true,
                 roles: ['admin'],
-              },
-            },
-            {
-              path: 'https://arco.design',
-              name: 'arcoWebsite',
-              meta: {
-                locale: 'menu.arcoWebsite',
-                requiresAuth: true,
               },
             },
           ],

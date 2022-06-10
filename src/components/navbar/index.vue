@@ -10,7 +10,7 @@
           :style="{ margin: 0, fontSize: '18px' }"
           :heading="5"
         >
-          Arco Pro
+          milimili
         </a-typography-title>
         <icon-menu-fold
           v-if="appStore.device === 'mobile'"
@@ -28,7 +28,7 @@
             </template>
           </a-button>
         </a-tooltip>
-      </li>
+      </li> 
       <li>
         <a-tooltip :content="$t('settings.language')">
           <a-button
