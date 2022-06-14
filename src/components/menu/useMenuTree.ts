@@ -15,6 +15,7 @@ export default function useMenuTree() {
   });
   const menuTree = computed(() => {
     const copyRouter = JSON.parse(JSON.stringify(appRoute.value));
+    console.log(JSON.stringify(appRoute.value))
     copyRouter.sort((a: RouteRecordNormalized, b: RouteRecordNormalized) => {
       return (a.meta.order || 0) - (b.meta.order || 0);
     });

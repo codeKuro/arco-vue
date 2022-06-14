@@ -20,12 +20,13 @@ axios.interceptors.request.use(
     // this example using the JWT token
     // Authorization is a custom headers key
     // please modify it according to the actual situation
+    // config.headers.contentType = 'application/json';
     const token = getToken();
     if (token) {
       if (!config.headers) {
         config.headers = {};
       }
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `${token}`;
     }
     return config;
   },
@@ -38,7 +39,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
     const res = response;
-    console.log(response)
+    console.log(response);
     // if the custom code is not 20000, it is judged as an error.
     if (res.status !== 200) {
       Message.error({

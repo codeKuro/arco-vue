@@ -69,33 +69,45 @@ setupMock({
 
     // 获取服务端菜单
     Mock.mock(new RegExp('/api/user/menu'), () => {
+      // const menuList = [
+      //   {
+      //     path: '/dashboard',
+      //     name: 'dashboard',
+      //     meta: {
+      //       locale: 'menu.server.dashboard',
+      //       requiresAuth: true,
+      //       icon: 'icon-dashboard',
+      //       order: 1,
+      //     },
+      //     children: [
+      //       {
+      //         path: 'workplace',
+      //         name: 'Workplace',
+      //         meta: {
+      //           locale: 'menu.server.workplace',
+      //           requiresAuth: true,
+      //         },
+      //       },
+      //       {
+      //         path: 'monitor',
+      //         name: 'Monitor',
+      //         meta: {
+      //           locale: 'menu.server.monitor',
+      //           requiresAuth: true,
+      //           roles: ['admin'],
+      //         },
+      //       },
+      //     ],
+      //   },
+      // ];
       const menuList = [
         {
-          path: '/dashboard',
-          name: 'dashboard',
-          meta: {
-            locale: 'menu.server.dashboard',
-            requiresAuth: true,
-            icon: 'icon-dashboard',
-            order: 1,
-          },
+          path: '/menu',
+          name: 'menu',
           children: [
             {
-              path: 'workplace',
-              name: 'Workplace',
-              meta: {
-                locale: 'menu.server.workplace',
-                requiresAuth: true,
-              },
-            },
-            {
-              path: 'monitor',
-              name: 'Monitor',
-              meta: {
-                locale: 'menu.server.monitor',
-                requiresAuth: true,
-                roles: ['admin'],
-              },
+              path: 'menu-list',
+              name: 'MenuList',
             },
           ],
         },

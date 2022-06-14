@@ -14,17 +14,15 @@ export interface PolicyRecord {
 }
 
 export interface PolicyParams extends Partial<PolicyRecord> {
-  current: number;
-  pageSize: number;
+  scopes: string;
 }
 
 export interface PolicyListRes {
-  list: PolicyRecord[];
-  total: number;
+  nodeTree: PolicyRecord[];
 }
 
 export function queryPolicyList(params: PolicyParams) {
-  return axios.get<PolicyListRes>('/api/list/policy', {
+  return axios.get<PolicyListRes>('/admin/v1/auth/node-tree', {
     params,
     paramsSerializer: (obj) => {
       return qs.stringify(obj);
