@@ -23,9 +23,9 @@ const useAppStore = defineStore('tabBar', {
       //   fullPath: '/dashboard/workplace',
       // },
       {
-        title: 'menu.menu.menuList',
-        name: 'MenuList',
-        fullPath: '/menu/menu-list',
+        title: 'menu.server.menuManagement',
+        name: 'MenuManagement',
+        fullPath: '/menu/menu-management',
       },
     ],
   }),

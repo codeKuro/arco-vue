@@ -102,12 +102,12 @@ setupMock({
       // ];
       const menuList = [
         {
-          path: '/menu',
-          name: 'menu',
+          path: '/server',
+          name: 'server',
           children: [
             {
-              path: 'menu-list',
-              name: 'MenuList',
+              path: 'menu-management',
+              name: 'MenuManagement',
             },
           ],
         },

@@ -10,7 +10,7 @@ import '@/views/dashboard/monitor/mock';
 import '@/views/list/card/mock';
 import '@/views/list/search-table/mock';
 
-import '@/views/menu/menu-list/mock';
+import '@/views/server/menu-management/mock';
 
 import '@/views/form/step/mock';
 

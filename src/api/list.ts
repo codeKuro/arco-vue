@@ -4,13 +4,20 @@ import type { DescData } from '@arco-design/web-vue/es/descriptions/interface';
 
 export interface PolicyRecord {
   id: string;
-  number: number;
+  pid: number;
+  type: number;
+  appName: string;
+  uri: string;
   name: string;
-  contentType: 'img' | 'horizontalVideo' | 'verticalVideo';
-  filterType: 'artificial' | 'rules';
-  count: number;
-  status: 'online' | 'offline';
-  createdTime: string;
+  identify: string;
+  isMenu: number;
+  icon: string;
+  urlQuery: string;
+  target: string;
+  remark: string;
+  status: number;
+  sort: number;
+  scopes: string;
 }
 
 export interface PolicyParams extends Partial<PolicyRecord> {
@@ -29,7 +36,11 @@ export function queryPolicyList(params: PolicyParams) {
     },
   });
 }
-
+export interface TreeItem {
+  title: string;
+  key: string;
+  children?: TreeItem[];
+}
 export interface ServiceRecord {
   id: number;
   title: string;

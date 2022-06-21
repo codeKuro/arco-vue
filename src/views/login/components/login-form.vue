@@ -138,7 +138,7 @@
         const { redirect, ...othersQuery } = router.currentRoute.value.query;
         router.push({
           // name: (redirect as string) || 'Workplace',
-          name: (redirect as string) || 'MenuList',
+          name: (redirect as string) || 'MenuManagement',
           query: {
             ...othersQuery,
           },
