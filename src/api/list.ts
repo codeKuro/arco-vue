@@ -4,43 +4,34 @@ import type { DescData } from '@arco-design/web-vue/es/descriptions/interface';
 
 export interface PolicyRecord {
   id: string;
-  pid: number;
-  type: number;
-  appName: string;
-  uri: string;
+  number: number;
   name: string;
-  identify: string;
-  isMenu: number;
-  icon: string;
-  urlQuery: string;
-  target: string;
-  remark: string;
-  status: number;
-  sort: number;
-  scopes: string;
+  contentType: 'img' | 'horizontalVideo' | 'verticalVideo';
+  filterType: 'artificial' | 'rules';
+  count: number;
+  status: 'online' | 'offline';
+  createdTime: string;
 }
 
 export interface PolicyParams extends Partial<PolicyRecord> {
-  scopes: string;
+  current: number;
+  pageSize: number;
 }
 
 export interface PolicyListRes {
-  nodeTree: PolicyRecord[];
+  list: PolicyRecord[];
+  total: number;
 }
 
 export function queryPolicyList(params: PolicyParams) {
-  return axios.get<PolicyListRes>('/admin/v1/auth/node-tree', {
+  return axios.get<PolicyListRes>('/api/list/policy', {
     params,
     paramsSerializer: (obj) => {
       return qs.stringify(obj);
     },
   });
 }
-export interface TreeItem {
-  title: string;
-  key: string;
-  children?: TreeItem[];
-}
+
 export interface ServiceRecord {
   id: number;
   title: string;

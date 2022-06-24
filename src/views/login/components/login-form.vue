@@ -41,9 +41,11 @@
           </template>
         </a-input-password>
       </a-form-item>
-      <a-form-item
+      <!-- <a-form-item
         field="captchaId"
-        :rules="[{ required: true, message: $t('login.form.captchaId.errMsg') }]"
+        :rules="[
+          { required: true, message: $t('login.form.captchaId.errMsg') },
+        ]"
         :validate-trigger="['change', 'blur']"
         hide-label
       >
@@ -55,8 +57,8 @@
             <icon-user />
           </template>
         </a-input>
-      </a-form-item>
-      <a-form-item
+      </a-form-item> -->
+      <!-- <a-form-item
         field="captcha"
         :rules="[{ required: true, message: $t('login.form.captcha.errMsg') }]"
         :validate-trigger="['change', 'blur']"
@@ -70,7 +72,7 @@
             <icon-user />
           </template>
         </a-input>
-      </a-form-item>
+      </a-form-item> -->
       <a-space :size="16" direction="vertical">
         <div class="login-form-password-actions">
           <a-checkbox
@@ -145,7 +147,7 @@
         });
         Message.success(t('login.form.login.success'));
         const { rememberPassword } = loginConfig.value;
-        const { username, password, captchaId, captcha} = values;
+        const { username, password, captchaId, captcha } = values;
         // 实际生产环境需要进行加密存储。
         // The actual production environment requires encrypted storage.
         loginConfig.value.username = rememberPassword ? username : '';
@@ -153,6 +155,7 @@
         loginConfig.value.captchaId = rememberPassword ? captchaId : '';
         loginConfig.value.captcha = rememberPassword ? captcha : '';
       } catch (err) {
+        console.log(err)
         errorMessage.value = (err as Error).message;
       } finally {
         setLoading(false);
