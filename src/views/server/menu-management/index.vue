@@ -380,22 +380,17 @@
           field="scopes"
           :label="$t('menuManagement.form.scopes')"
         >
-          <a-space size="large">
-            <a-radio-group v-model="formModel.scopes"
-              ><a-radio value="admin" :default-checked="true">{{
-                $t('menuManagement.form.scopes.admin')
-              }}</a-radio>
-              <a-radio value="member">{{
-                $t('menuManagement.form.scopes.member')
-              }}</a-radio></a-radio-group
-            >
-          </a-space>
+          <a-radio-group v-model="formModel.scopes"
+            ><a-radio value="admin" :default-checked="true">{{
+              $t('menuManagement.form.scopes.admin')
+            }}</a-radio>
+            <a-radio value="member">{{
+              $t('menuManagement.form.scopes.member')
+            }}</a-radio></a-radio-group
+          >
         </a-form-item>
         <a-form-item field="icon" :label="$t('menuManagement.form.icon')">
-          <a-input
-            v-model="formModel.icon"
-            :placeholder="$t('menuManagement.form.placeholder.input')"
-          />
+          <IconSelector v-model:value="formModel.icon"></IconSelector>
         </a-form-item>
         <a-form-item
           field="urlQuery"
@@ -466,6 +461,7 @@
   } from '@/api/menu';
   import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
   import { FormInstance } from '@arco-design/web-vue/es/form';
+  import IconSelector from './components/icon-selector.vue';
 
   const generateFormModel = () => {
     return {
@@ -513,26 +509,26 @@
       value: 2,
     },
   ]);
-  const filterTypeOptions = computed<SelectOptionData[]>(() => [
-    {
-      label: t('menuManagement.form.filterType.artificial'),
-      value: 'artificial',
-    },
-    {
-      label: t('menuManagement.form.filterType.rules'),
-      value: 'rules',
-    },
-  ]);
-  const statusOptions = computed<SelectOptionData[]>(() => [
-    {
-      label: t('menuManagement.form.status.online'),
-      value: 'online',
-    },
-    {
-      label: t('menuManagement.form.status.offline'),
-      value: 'offline',
-    },
-  ]);
+  // const filterTypeOptions = computed<SelectOptionData[]>(() => [
+  //   {
+  //     label: t('menuManagement.form.filterType.artificial'),
+  //     value: 'artificial',
+  //   },
+  //   {
+  //     label: t('menuManagement.form.filterType.rules'),
+  //     value: 'rules',
+  //   },
+  // ]);
+  // const statusOptions = computed<SelectOptionData[]>(() => [
+  //   {
+  //     label: t('menuManagement.form.status.online'),
+  //     value: 'online',
+  //   },
+  //   {
+  //     label: t('menuManagement.form.status.offline'),
+  //     value: 'offline',
+  //   },
+  // ]);
   const transformRoutes = (routes: any[]) => {
     const list: TreeItem[] = [];
     routes
