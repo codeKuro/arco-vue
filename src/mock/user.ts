@@ -8,6 +8,7 @@ import { MockParams } from '@/types/mock';
 import { isLogin } from '@/utils/auth';
 
 setupMock({
+  // mock: false,
   setup() {
     // Mock.XHR.prototype.withCredentials = true;
 
@@ -66,43 +67,47 @@ setupMock({
       return successResponseWrap(null);
     });
 
-    // 登出
+    // 获取服务端菜单
     Mock.mock(new RegExp('/api/user/menu'), () => {
+      // const menuList = [
+      //   {
+      //     path: '/dashboard',
+      //     name: 'dashboard',
+      //     meta: {
+      //       locale: 'menu.server.dashboard',
+      //       requiresAuth: true,
+      //       icon: 'icon-dashboard',
+      //       order: 1,
+      //     },
+      //     children: [
+      //       {
+      //         path: 'workplace',
+      //         name: 'Workplace',
+      //         meta: {
+      //           locale: 'menu.server.workplace',
+      //           requiresAuth: true,
+      //         },
+      //       },
+      //       {
+      //         path: 'monitor',
+      //         name: 'Monitor',
+      //         meta: {
+      //           locale: 'menu.server.monitor',
+      //           requiresAuth: true,
+      //           roles: ['admin'],
+      //         },
+      //       },
+      //     ],
+      //   },
+      // ];
       const menuList = [
         {
-          path: '/dashboard',
-          name: 'dashboard',
-          meta: {
-            locale: 'menu.server.dashboard',
-            requiresAuth: true,
-            icon: 'icon-dashboard',
-            order: 1,
-          },
+          path: '/server',
+          name: 'server',
           children: [
             {
-              path: 'workplace',
-              name: 'Workplace',
-              meta: {
-                locale: 'menu.server.workplace',
-                requiresAuth: true,
-              },
-            },
-            {
-              path: 'monitor',
-              name: 'Monitor',
-              meta: {
-                locale: 'menu.server.monitor',
-                requiresAuth: true,
-                roles: ['admin'],
-              },
-            },
-            {
-              path: 'https://arco.design',
-              name: 'arcoWebsite',
-              meta: {
-                locale: 'menu.arcoWebsite',
-                requiresAuth: true,
-              },
+              path: 'menu-management',
+              name: 'MenuManagement',
             },
           ],
         },

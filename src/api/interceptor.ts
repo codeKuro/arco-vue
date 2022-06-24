@@ -20,12 +20,13 @@ axios.interceptors.request.use(
     // this example using the JWT token
     // Authorization is a custom headers key
     // please modify it according to the actual situation
+    // config.headers.contentType = 'application/json';
     const token = getToken();
     if (token) {
       if (!config.headers) {
         config.headers = {};
       }
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `${token}`;
     }
     return config;
   },
@@ -37,16 +38,17 @@ axios.interceptors.request.use(
 // add response interceptors
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
-    const res = response.data;
+    const res = response;
+    console.log(response);
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000) {
+    if (res.status !== 200) {
       Message.error({
-        content: res.msg || 'Error',
+        content: res.statusText || 'Error',
         duration: 5 * 1000,
       });
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (
-        [50008, 50012, 50014].includes(res.code) &&
+        [50008, 50012, 50014].includes(res.status) &&
         response.config.url !== '/api/user/info'
       ) {
         Modal.error({
@@ -62,13 +64,13 @@ axios.interceptors.response.use(
           },
         });
       }
-      return Promise.reject(new Error(res.msg || 'Error'));
+      return Promise.reject(new Error(res.statusText || 'Error'));
     }
     return res;
   },
   (error) => {
     Message.error({
-      content: error.msg || 'Request Error',
+      content: error.response.data.message || 'Request Error',
       duration: 5 * 1000,
     });
     return Promise.reject(error);

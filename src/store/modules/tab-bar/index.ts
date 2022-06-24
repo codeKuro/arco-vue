@@ -17,10 +17,15 @@ const useAppStore = defineStore('tabBar', {
     cacheTabList: new Set(),
     tagList: [
       // Set the first element dynamically as needed
+      // {
+      //   title: 'menu.dashboard.workplace',
+      //   name: 'Workplace',
+      //   fullPath: '/dashboard/workplace',
+      // },
       {
-        title: 'menu.dashboard.workplace',
-        name: 'Workplace',
-        fullPath: '/dashboard/workplace',
+        title: 'menu.server.menuManagement',
+        name: 'MenuManagement',
+        fullPath: '/server/menu-management',
       },
     ],
   }),
