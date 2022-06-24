@@ -392,10 +392,7 @@
           </a-space>
         </a-form-item>
         <a-form-item field="icon" :label="$t('menuManagement.form.icon')">
-          <a-input
-            v-model="formModel.icon"
-            :placeholder="$t('menuManagement.form.placeholder.input')"
-          />
+          <IconSelector v-model:value="formModel.icon"></IconSelector>
         </a-form-item>
         <a-form-item
           field="urlQuery"
@@ -466,6 +463,7 @@
   } from '@/api/menu';
   import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
   import { FormInstance } from '@arco-design/web-vue/es/form';
+  import IconSelector from './components/icon-selector.vue';
 
   const generateFormModel = () => {
     return {
