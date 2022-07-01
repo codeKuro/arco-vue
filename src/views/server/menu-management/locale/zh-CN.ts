@@ -17,6 +17,7 @@ export default {
   'menuManagement.form.urlQuery': '额外参数',
   'menuManagement.form.target': '打开方式',
   'menuManagement.form.sort': '排序',
+  'menuManagement.form.checkProduct': '检测产品权限',
   'menuManagement.form.remark': '备注',
   'menuManagement.form.status': '状态',
   'menuManagement.form.status.1': '启用',

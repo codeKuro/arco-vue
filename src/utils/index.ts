@@ -2,7 +2,7 @@ type TargetContext = '_self' | '_parent' | '_blank' | '_top';
 
 export const openWindow = (
   url: string,
-  opts?: { target?: TargetContext; [key: string]: any }
+  opts?: { target?: TargetContext;[key: string]: any }
 ) => {
   const { target = '_blank', ...others } = opts || {};
   window.open(
@@ -15,6 +15,29 @@ export const openWindow = (
       }, [])
       .join(',')
   );
+};
+
+export const transformRoutes = (routes: any[]) => {
+  const list: any[] = [];
+  routes
+    .filter((it) => it.hidden !== true)
+    .forEach((it) => {
+      const searchItem: any = {
+        key: it.id,
+        title: it.name,
+        name: it.identify,
+        path: it.uri,
+        meta: {
+          order: it.sort,
+          locale: it.name,
+        },
+      };
+      if (it.children instanceof Array && it.children.length > 0) {
+        searchItem.children = transformRoutes(it.children);
+      }
+      list.push(searchItem);
+    });
+  return list;
 };
 
 export const regexUrl = new RegExp(

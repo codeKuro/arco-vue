@@ -8,7 +8,7 @@ export default {
     locale: 'menu.visualization',
     requiresAuth: true,
     icon: 'icon-apps',
-    order: 1,
+    order: 8,
   },
   children: [
     {

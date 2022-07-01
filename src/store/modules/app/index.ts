@@ -4,6 +4,7 @@ import type { NotificationReturn } from '@arco-design/web-vue/es/notification/in
 import type { RouteRecordNormalized } from 'vue-router';
 import defaultSettings from '@/config/settings.json';
 import { getMenuList } from '@/api/user';
+import { transformRoutes } from '@/utils';
 import { AppState } from './types';
 
 const useAppStore = defineStore('app', {
@@ -53,8 +54,8 @@ const useAppStore = defineStore('app', {
           closable: true,
         });
         const { data } = await getMenuList();
-        console.log(data)
-        this.serverMenu = data.data;
+        this.serverMenu = transformRoutes(data.menuTree);
+        console.log(this.serverMenu);
         notifiInstance = Notification.success({
           id: 'menuNotice',
           content: 'success',

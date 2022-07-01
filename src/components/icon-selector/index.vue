@@ -74,14 +74,14 @@
       seletedItem.value = newVal;
     }
   );
-  function onPageChange(page: number) {
+  const onPageChange = (page: number) => {
     currentPage.value = page;
     iconNames.value =
       searchList.value.length === 0
         ? iconList.slice((page - 1) * pageSize, page * pageSize)
         : searchList.value.slice((page - 1) * pageSize, page * pageSize);
-  }
-  function onSearch(searchValue: string) {
+  };
+  const onSearch = (searchValue: string) => {
     if (searchValue) {
       const temp = searchValue.toLowerCase();
       searchList.value = iconList.filter((it) => {
@@ -100,8 +100,8 @@
         currentPage.value * pageSize
       );
     }
-  }
-  async function onSelectItem(item: string) {
+  };
+  const onSelectItem = async (item: string) => {
     emit('onSelect', item);
     emit('update:value', item);
     seletedItem.value = item;
@@ -115,7 +115,7 @@
         }
       }
     }
-  }
+  };
 </script>
 <style scoped lang="less">
   :deep(.arco-pagination) {

@@ -12,7 +12,7 @@ export default {
   },
   children: [
     {
-      path: 'menu-management', // The midline path complies with SEO specifications
+      path: '/menu-management',
       name: 'MenuManagement',
       component: () => import('@/views/server/menu-management/index.vue'),
       meta: {
