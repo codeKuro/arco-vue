@@ -2,7 +2,7 @@ import { DEFAULT_LAYOUT } from '@/router/constans';
 
 export default {
   path: '/enterprise',
-  name: 'enterprise',
+  name: 'Enterprise',
   component: DEFAULT_LAYOUT,
   meta: {
     locale: 'menu.enterprise',

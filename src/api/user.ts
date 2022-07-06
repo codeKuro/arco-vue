@@ -12,6 +12,18 @@ export interface LoginData {
 export interface LoginRes {
   token: string;
 }
+
+export interface infoData {
+  nickname: string;
+  password: string;
+  mobile: string;
+  email: string;
+}
+
+export interface infoRes {
+  id: string;
+}
+
 export function login(data: LoginData) {
   return axios.post<LoginRes>('/admin/v1/login', data);
 }
@@ -22,6 +34,10 @@ export function logout() {
 
 export function getUserInfo() {
   return axios.get<UserState>('/admin/v1/admin-info');
+}
+
+export function updateUserInfo(data: infoData) {
+  return axios.post<infoRes>('/admin/v1/update-admin-info', data);
 }
 
 export function getMenuList() {

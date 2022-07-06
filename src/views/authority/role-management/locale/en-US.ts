@@ -25,9 +25,9 @@ export default {
   'roleManagement.operation.create': 'Create',
   'roleManagement.operation.delete': 'Delete',
   'roleManagement.operation.download': 'Download',
-  'roleManagement.form.add.success': 'Successfully added',
-  'roleManagement.form.edit.success': 'Successfully edited',
-  'roleManagement.form.delete.success': 'Successfully deleted',
+  'roleManagement.form.add.success': 'Successfully Added',
+  'roleManagement.form.edit.success': 'Successfully Edited',
+  'roleManagement.form.delete.success': 'Successfully Deleted',
   // columns
   'roleManagement.columns.type': 'Type',
   'roleManagement.columns.appName': 'application Name',

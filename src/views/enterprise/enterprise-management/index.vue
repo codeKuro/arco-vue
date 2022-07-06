@@ -8,6 +8,73 @@
       :title="$t('menu.enterprise.enterpriseManagement')"
     >
       <a-row style="margin-bottom: 16px">
+        <a-col :flex="1">
+          <a-form
+            :model="formModel"
+            :label-col-props="{ span: 6 }"
+            :wrapper-col-props="{ span: 18 }"
+            label-align="left"
+          >
+            <a-row :gutter="16">
+              <a-col :span="8">
+                <a-form-item
+                  field="name"
+                  :label="$t('enterpriseManagement.form.name')"
+                >
+                  <a-input
+                    v-model="formModel.name"
+                    :placeholder="
+                      $t('enterpriseManagement.form.placeholder.input')
+                    "
+                  />
+                </a-form-item>
+              </a-col>
+              <a-col :span="8">
+                <a-form-item
+                  field="status"
+                  :label="$t('enterpriseManagement.form.status')"
+                >
+                  <a-select
+                    v-model="formModel.status"
+                    :options="statusOptions"
+                    :placeholder="$t('enterpriseManagement.form.selectDefault')"
+                  />
+                </a-form-item>
+              </a-col>
+              <a-col :span="8">
+                <a-form-item
+                  field="createdAt"
+                  :label="$t('enterpriseManagement.form.createdAt')"
+                >
+                  <a-range-picker
+                    v-model="formModel.createdTime"
+                    style="width: 100%"
+                  />
+                </a-form-item>
+              </a-col>
+            </a-row>
+          </a-form>
+        </a-col>
+        <a-divider style="height: 84px" direction="vertical" />
+        <a-col :flex="'86px'" style="text-align: right">
+          <a-space direction="vertical" :size="18">
+            <a-button type="primary" @click="search">
+              <template #icon>
+                <icon-search />
+              </template>
+              {{ $t('enterpriseManagement.form.search') }}
+            </a-button>
+            <a-button @click="reset">
+              <template #icon>
+                <icon-refresh />
+              </template>
+              {{ $t('enterpriseManagement.form.reset') }}
+            </a-button>
+          </a-space>
+        </a-col>
+      </a-row>
+      <a-divider style="margin-top: 0" />
+      <a-row style="margin-bottom: 16px">
         <a-col :span="16">
           <a-space>
             <a-button type="primary" @click="handleClickAdd">
@@ -22,7 +89,7 @@
       <a-table
         row-key="id"
         :loading="loading"
-        :pagination="true"
+        :pagination="pagination"
         :data="renderData"
         :bordered="false"
         @page-change="onPageChange"
@@ -236,7 +303,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
+  import { computed, ref, reactive } from 'vue';
   import { useI18n } from 'vue-i18n';
   import useLoading from '@/hooks/loading';
   import { Message } from '@arco-design/web-vue';
@@ -251,15 +318,15 @@
   } from '@/api/enterprise';
   import { Pagination } from '@/types/global';
   import { FormInstance } from '@arco-design/web-vue/es/form';
+  import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
   const generateFormModel = () => {
     return {
       name: '',
-      nickname: '',
-      password: '',
-      email: '',
-      maxTeamNum: 0,
-      maxMemberNum: 0,
+      status: -1,
+      create_start_time: '',
+      create_end_time: '',
+      createdTime: [],
     };
   };
   const errorMessage = ref('');
@@ -278,6 +345,20 @@
   const pagination = reactive({
     ...basePagination,
   });
+  const statusOptions = computed<SelectOptionData[]>(() => [
+    {
+      label: t('enterpriseManagement.form.status.-1'),
+      value: -1,
+    },
+    {
+      label: t('enterpriseManagement.form.status.0'),
+      value: 0,
+    },
+    {
+      label: t('enterpriseManagement.form.status.1'),
+      value: 1,
+    },
+  ]);
   const fetchData = async (
     params: EnterpriseParams = { page: 1, size: 10 }
   ) => {
@@ -293,11 +374,25 @@
       setLoading(false);
     }
   };
+  const search = () => {
+    console.log(formModel.value);
+    const formatForm = JSON.parse(JSON.stringify(formModel.value));
+    // eslint-disable-next-line prefer-destructuring
+    formatForm.create_start_time = formatForm.createdTime[0];
+    // eslint-disable-next-line prefer-destructuring
+    formatForm.create_end_time = formatForm.createdTime[1];
+    fetchData({
+      ...basePagination,
+      ...formatForm,
+    } as unknown as EnterpriseParams);
+  };
   const onPageChange = (page: number) => {
-    console.log(page);
     fetchData({ ...basePagination, page });
   };
   fetchData();
+  const reset = () => {
+    formModel.value = generateFormModel();
+  };
   const handleClickAdd = async () => {
     formRef.value?.resetFields();
     setLoading(true);
@@ -358,6 +453,7 @@
     switchLoading.value = true;
     try {
       const { data } = await updateEnterpriseRecord({ id: row.id });
+      Message.success(t('enterpriseManagement.form.edit.success'));
       fetchData();
     } catch (err) {
       // you can report use errorHandler or other

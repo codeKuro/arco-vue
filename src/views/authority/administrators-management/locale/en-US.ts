@@ -3,6 +3,7 @@ export default {
   'administratorsManagement.form.title': 'Title',
   'administratorsManagement.form.title.add': 'Add Administrators',
   'administratorsManagement.form.title.edit': 'Edit Administrators',
+  'administratorsManagement.form.title.bind': 'Role Band',
   'administratorsManagement.form.username': 'Username',
   'administratorsManagement.form.nickname': 'Nickname',
   'administratorsManagement.form.password': 'Password',
@@ -16,8 +17,9 @@ export default {
   'administratorsManagement.form.placeholder.input': 'Please enter',
   'administratorsManagement.operation.create': 'Create',
   'administratorsManagement.operation.download': 'Download',
-  'administratorsManagement.form.add.success': 'Successfully added',
-  'administratorsManagement.form.edit.success': 'Successfully edited',
+  'administratorsManagement.form.add.success': 'Successfully Added',
+  'administratorsManagement.form.edit.success': 'Successfully Edited',
+  'administratorsManagement.form.bind.success': 'Successfully Binded',
   // columns
   'administratorsManagement.columns.id': 'ID',
   'administratorsManagement.columns.username': 'Username',
@@ -33,7 +35,7 @@ export default {
   'administratorsManagement.columns.operations': 'Operations',
   'administratorsManagement.columns.operations.view': 'View',
   'administratorsManagement.columns.operations.edit': 'Edit',
-  'administratorsManagement.columns.operations.roleBand': 'RoleBand',
+  'administratorsManagement.columns.operations.roleBand': 'Role Band',
   // buttons
   'administratorsManagement.button.submit': 'Submit',
   'administratorsManagement.button.reset': 'Reset',

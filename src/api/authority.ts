@@ -71,6 +71,11 @@ export interface AdministratorsRecordRes {
   id: string;
 }
 
+export interface AdministratorsBindRecordRes {
+  id: string;
+  roleIds: string;
+}
+
 export interface AdministratorsStatusRes {
   id: string;
   status: number;
@@ -127,6 +132,13 @@ export function updateAdministratorsStatusRecord(
 ) {
   return axios.post<AdministratorsStatusRes>(
     '/admin/v1/set-account-status',
+    data
+  );
+}
+
+export function bindAdministratorsRecord(data: AdministratorsBindRecordRes) {
+  return axios.post<AdministratorsRecordRes>(
+    '/admin/v1/bind-account-role',
     data
   );
 }

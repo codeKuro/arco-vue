@@ -22,20 +22,20 @@ export const transformRoutes = (routes: any[]) => {
   routes
     .filter((it) => it.hidden !== true)
     .forEach((it) => {
-      const searchItem: any = {
+      const routeItems: any = {
         key: it.id,
         title: it.name,
         name: it.identify,
         path: it.uri,
         meta: {
           order: it.sort,
-          locale: it.name,
+          locale: `menu.server.${it.identify}`,
         },
       };
       if (it.children instanceof Array && it.children.length > 0) {
-        searchItem.children = transformRoutes(it.children);
+        routeItems.children = transformRoutes(it.children);
       }
-      list.push(searchItem);
+      list.push(routeItems);
     });
   return list;
 };

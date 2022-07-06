@@ -22,7 +22,7 @@
       <a-table
         row-key="id"
         :loading="loading"
-        :pagination="true"
+        :pagination="pagination"
         :data="renderData"
         :bordered="false"
         @page-change="onPageChange"
@@ -56,7 +56,7 @@
               <a-space>
                 <a-switch
                   v-model="record.status"
-                  :disabled="record.isSuperAdmin === 1 ? true : false"
+                  :disabled="record.isSuperRole === 1 ? true : false"
                   :loading="switchLoading"
                   :checked-value="1"
                   :unchecked-value="0"
@@ -80,7 +80,7 @@
             <template #cell="{ record }">
               <a-space>
                 <a-button
-                  :disabled="record.isSuperAdmin === 1 ? true : false"
+                  :disabled="record.isSuperRole === 1 ? true : false"
                   status="success"
                   size="small"
                   @click="handleClickEdit(record)"
@@ -91,7 +91,7 @@
                   {{ $t('administratorsManagement.columns.operations.edit') }}
                 </a-button>
                 <a-button
-                  :disabled="record.isSuperAdmin === 1 ? true : false"
+                  :disabled="record.isSuperRole === 1 ? true : false"
                   status="success"
                   size="small"
                   @click="handleClickBand(record)"
@@ -230,6 +230,18 @@
         </a-form-item>
       </a-form>
     </a-modal>
+    <a-modal
+      v-model:visible="visibleTree"
+      :title="$t('administratorsManagement.form.title.bind')"
+      @ok="handleClickConfirm"
+    >
+      <a-tree
+        v-model:checked-keys="checkedKeys"
+        :checkable="true"
+        :check-strictly="checkStrictly"
+        :data="roleData"
+      />
+    </a-modal>
   </div>
 </template>
 
@@ -243,12 +255,16 @@
     queryAdministratorsList,
     AdministratorsRecord,
     AdministratorsParams,
+    RoleParams,
+    queryRoleList,
     createAdministratorsRecord,
     updateAdministratorsRecord,
     updateAdministratorsStatusRecord,
+    bindAdministratorsRecord,
   } from '@/api/authority';
   import { Pagination } from '@/types/global';
   import { FormInstance } from '@arco-design/web-vue/es/form';
+  import { transformRoutes } from '@/utils';
 
   const generateFormModel = () => {
     return {
@@ -262,18 +278,29 @@
       // isSupperRole: 0,
       // isSuperAdmin: 0,
       // roleNames: '',
-      // roleIds: '',
+      roleIds: '',
       status: 0,
+    };
+  };
+  const bandFormModel = () => {
+    return {
+      id: '',
+      roleIds: '',
     };
   };
   const errorMessage = ref('');
   const { loading, setLoading } = useLoading(true);
   const { t } = useI18n();
   const renderData = ref<AdministratorsRecord[]>([]);
+  const roleData = ref<Array<any>>([]);
   const formRef = ref<FormInstance>();
   const formModel = ref(generateFormModel());
+  const bandModel = ref(bandFormModel());
   const switchLoading = ref(false);
   const visible = ref(false);
+  const visibleTree = ref(false);
+  const checkedKeys = ref([]);
+  const checkStrictly = ref(false);
   const actionModel = ref();
   const basePagination: Pagination = {
     page: 1,
@@ -289,12 +316,26 @@
     try {
       const { data } = await queryAdministratorsList(params);
       renderData.value = data.list;
+      pagination.page = params.page;
+      pagination.total = data.total;
     } catch (err) {
       // you can report use errorHandler or other
     } finally {
       setLoading(false);
     }
   };
+  const fetchDataRole = async (params: RoleParams = { scopes: 'admin' }) => {
+    setLoading(true);
+    try {
+      const { data } = await queryRoleList(params);
+      roleData.value = transformRoutes(data.roleList);
+    } catch (err) {
+      // you can report use errorHandler or other
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchDataRole();
   const onPageChange = (page: number) => {
     fetchData({ ...basePagination, page });
   };
@@ -316,8 +357,13 @@
     visible.value = true;
   };
   const handleClickBand = (row: any) => {
-    console.log(row);
-    visible.value = true;
+    console.log(checkedKeys);
+    const rowTrans = JSON.parse(JSON.stringify(row));
+    rowTrans.roleIds = rowTrans.roleIds.split(',');
+    console.log(rowTrans.roleIds);
+    checkedKeys.value = rowTrans.roleIds;
+    bandModel.value.id = rowTrans.id;
+    visibleTree.value = true;
   };
   const handleSubmit = async ({
     errors,
@@ -358,11 +404,28 @@
     switchLoading.value = true;
     try {
       const { data } = await updateAdministratorsStatusRecord({ id: row.id });
+      Message.success(t('administratorsManagement.form.edit.success'));
       fetchData();
     } catch (err) {
       // you can report use errorHandler or other
     } finally {
       switchLoading.value = false;
+    }
+  };
+  const handleClickConfirm = async () => {
+    setLoading(true);
+    bandModel.value.roleIds = JSON.parse(JSON.stringify(checkedKeys.value));
+    const formatForm = JSON.parse(JSON.stringify(bandModel.value));
+    formatForm.roleIds = formatForm.roleIds.toString();
+    console.log(formatForm);
+    try {
+      const { data } = await bindAdministratorsRecord(formatForm);
+      Message.success(t('administratorsManagement.form.bind.success'));
+      fetchData();
+    } catch (err) {
+      // you can report use errorHandler or other
+    } finally {
+      setLoading(false);
     }
   };
 </script>

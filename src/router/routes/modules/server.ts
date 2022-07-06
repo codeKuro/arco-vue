@@ -2,7 +2,7 @@ import { DEFAULT_LAYOUT } from '@/router/constans';
 
 export default {
   path: '/server',
-  name: 'server',
+  name: 'Server',
   component: DEFAULT_LAYOUT,
   meta: {
     locale: 'menu.server',

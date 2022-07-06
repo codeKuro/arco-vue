@@ -76,9 +76,7 @@
                   <a-space>
                     <a-switch
                       v-model="record.status"
-                      :disabled="
-                        record.identify === 'super_admin' ? true : false
-                      "
+                      :disabled="record.id === '1' ? true : false"
                       :loading="switchLoading"
                       :checked-value="1"
                       :unchecked-value="0"
@@ -541,6 +539,7 @@
     if (!errors) {
       setLoading(true);
       const formatForm = JSON.parse(JSON.stringify(formModel.value));
+      console.log(formModel.value)
       formatForm.nodeIds = formatForm.nodeIds.toString();
       if (actionModel.value === 'add') {
         try {
@@ -571,6 +570,7 @@
     switchLoading.value = true;
     try {
       const { data } = await updateRoleStatusRecord({ id: row.id });
+      Message.success(t('roleManagement.form.edit.success'));
       fetchData();
     } catch (err) {
       // you can report use errorHandler or other

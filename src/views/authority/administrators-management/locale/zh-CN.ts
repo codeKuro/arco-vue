@@ -3,6 +3,7 @@ export default {
   'administratorsManagement.form.title': '标题',
   'administratorsManagement.form.title.add': '新增管理员',
   'administratorsManagement.form.title.edit': '编辑管理员',
+  'administratorsManagement.form.title.bind': '绑定角色',
   'administratorsManagement.form.username': '用户名',
   'administratorsManagement.form.nickname': '昵称',
   'administratorsManagement.form.password': '密码',
@@ -18,6 +19,7 @@ export default {
   'administratorsManagement.operation.download': '下载',
   'administratorsManagement.form.add.success': '新增成功',
   'administratorsManagement.form.edit.success': '编辑成功',
+  'administratorsManagement.form.bind.success': '绑定成功',
   // columns
   'administratorsManagement.columns.id': 'ID',
   'administratorsManagement.columns.username': '用户名',

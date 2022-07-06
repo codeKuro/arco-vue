@@ -2,7 +2,7 @@ import { DEFAULT_LAYOUT } from '@/router/constans';
 
 export default {
   path: '/authority',
-  name: 'authority',
+  name: 'Authority',
   component: DEFAULT_LAYOUT,
   meta: {
     locale: 'menu.authority',

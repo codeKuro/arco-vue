@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 <template>
   <div class="container">
     <Breadcrumb
@@ -18,6 +19,19 @@
             <a-row :gutter="16">
               <a-col :span="8">
                 <a-form-item
+                  field="nickname"
+                  :label="$t('enterpriseMemberManagement.form.nickname')"
+                >
+                  <a-input
+                    v-model="formModel.nickname"
+                    :placeholder="
+                      $t('enterpriseMemberManagement.form.selectDefault')
+                    "
+                  />
+                </a-form-item>
+              </a-col>
+              <a-col :span="8">
+                <a-form-item
                   field="email"
                   :label="$t('enterpriseMemberManagement.form.email')"
                 >
@@ -35,22 +49,8 @@
                   :label="$t('enterpriseMemberManagement.form.createdAt')"
                 >
                   <a-range-picker
-                    v-model="formModel.createdAt"
+                    v-model="formModel.createdTime"
                     style="width: 100%"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item
-                  field="status"
-                  :label="$t('enterpriseMemberManagement.form.status')"
-                >
-                  <a-select
-                    v-model="formModel.status"
-                    :options="statusOptions"
-                    :placeholder="
-                      $t('enterpriseMemberManagement.form.selectDefault')
-                    "
                   />
                 </a-form-item>
               </a-col>
@@ -79,7 +79,7 @@
       <a-table
         row-key="id"
         :loading="loading"
-        :pagination="true"
+        :pagination="pagination"
         :data="renderData"
         :bordered="false"
         @page-change="onPageChange"
@@ -100,7 +100,15 @@
           <a-table-column
             :title="$t('enterpriseMemberManagement.columns.emailVerified')"
             data-index="emailVerified"
-          />
+          >
+            <template #cell="{ record }">
+              {{
+                $t(
+                  `enterpriseMemberManagement.form.emailVerified.${record.emailVerified}`
+                )
+              }}
+            </template>
+          </a-table-column>
           <a-table-column
             :title="$t('enterpriseMemberManagement.columns.lastLoginIp')"
             data-index="lastLoginIp"
@@ -151,6 +159,7 @@
   import { computed, ref, reactive } from 'vue';
   import { useI18n } from 'vue-i18n';
   import useLoading from '@/hooks/loading';
+  import { Message } from '@arco-design/web-vue';
   import {
     queryEnterpriseMemberList,
     EnterpriseMemberRecord,
@@ -162,28 +171,13 @@
 
   const generateFormModel = () => {
     return {
-      id: '',
       nickname: '',
       email: '',
-      emailVerified: 0,
-      lastLoginIp: '',
-      lastLoginAt: '',
-      relationCompanyNum: 0,
-      topId: '',
-      status: null,
-      createdAt: '',
+      create_start_time: '',
+      create_end_time: '',
+      createdTime: [],
     };
   };
-  const statusOptions = computed<SelectOptionData[]>(() => [
-    {
-      label: t('roleManagement.form.status.0'),
-      value: 0,
-    },
-    {
-      label: t('roleManagement.form.status.1'),
-      value: 1,
-    },
-  ]);
   const { loading, setLoading } = useLoading(true);
   const { t } = useI18n();
   const renderData = ref<EnterpriseMemberRecord[]>([]);
@@ -212,13 +206,18 @@
     }
   };
   const search = () => {
+    console.log(formModel.value);
+    const formatForm = JSON.parse(JSON.stringify(formModel.value));
+    // eslint-disable-next-line prefer-destructuring
+    formatForm.create_start_time = formatForm.createdTime[0];
+    // eslint-disable-next-line prefer-destructuring
+    formatForm.create_end_time = formatForm.createdTime[1];
     fetchData({
       ...basePagination,
-      ...formModel.value,
+      ...formatForm,
     } as unknown as EnterpriseParams);
   };
   const onPageChange = (page: number) => {
-    console.log(page);
     fetchData({ ...basePagination, page });
   };
   fetchData();
@@ -229,6 +228,7 @@
     switchLoading.value = true;
     try {
       const { data } = await updateEnterpriseMemberRecord({ id: row.id });
+      Message.success(t('enterpriseMemberManagement.form.edit.success'));
       fetchData();
     } catch (err) {
       // you can report use errorHandler or other

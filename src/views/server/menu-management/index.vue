@@ -32,14 +32,14 @@
                 </a-popconfirm>
               </a-space>
             </a-col>
-            <a-col :span="8" style="text-align: right">
+            <!-- <a-col :span="8" style="text-align: right">
               <a-button>
                 <template #icon>
                   <icon-download />
                 </template>
                 {{ $t('menuManagement.operation.download') }}
               </a-button>
-            </a-col>
+            </a-col> -->
           </a-row>
           <a-table
             v-if="activeKey == 1"
@@ -172,14 +172,14 @@
                 </a-popconfirm>
               </a-space>
             </a-col>
-            <a-col :span="8" style="text-align: right">
+            <!-- <a-col :span="8" style="text-align: right">
               <a-button>
                 <template #icon>
                   <icon-download />
                 </template>
                 {{ $t('menuManagement.operation.download') }}
               </a-button>
-            </a-col>
+            </a-col> -->
           </a-row>
           <a-table
             v-if="activeKey == 2"
@@ -643,9 +643,11 @@
     if (!errors) {
       console.log(actionModel.value);
       setLoading(true);
+      const formatForm = JSON.parse(JSON.stringify(formModel.value));
       if (actionModel.value === 'add') {
+        formatForm.id = undefined;
         try {
-          await createMenuRecord(formModel.value);
+          await createMenuRecord(formatForm);
           Message.success(t('menuManagement.form.add.success'));
           fetchData();
         } catch (err) {
@@ -656,7 +658,7 @@
         }
       } else {
         try {
-          await updateMenuRecord(formModel.value);
+          await updateMenuRecord(formatForm);
           Message.success(t('menuManagement.form.edit.success'));
           fetchData();
         } catch (err) {
@@ -672,6 +674,7 @@
     switchLoading.value = true;
     try {
       const { data } = await updateMenuStatusRecord({ id: row.id });
+      Message.success(t('menuManagement.form.edit.success'));
       fetchData();
     } catch (err) {
       // you can report use errorHandler or other
