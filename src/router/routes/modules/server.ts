@@ -2,7 +2,7 @@ import { DEFAULT_LAYOUT } from '@/router/constans';
 
 export default {
   path: '/server',
-  name: 'server',
+  name: 'Server',
   component: DEFAULT_LAYOUT,
   meta: {
     locale: 'menu.server',
@@ -12,7 +12,7 @@ export default {
   },
   children: [
     {
-      path: 'menu-management', // The midline path complies with SEO specifications
+      path: '/menu-management',
       name: 'MenuManagement',
       component: () => import('@/views/server/menu-management/index.vue'),
       meta: {

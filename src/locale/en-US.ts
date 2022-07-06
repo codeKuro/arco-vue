@@ -10,6 +10,12 @@ import localeCardList from '@/views/list/card/locale/en-US';
 
 import localeMenuManagement from '@/views/server/menu-management/locale/en-US';
 
+import localeRoleManagement from '@/views/authority/role-management/locale/en-US';
+import localeAdministratorsManagement from '@/views/authority/administrators-management/locale/en-US';
+
+import localeEnterpriseManagement from '@/views/enterprise/enterprise-management/locale/en-US';
+import localeEnterpriseMemberManagement from '@/views/enterprise/enterprise-member-management/locale/en-US';
+
 import localeStepForm from '@/views/form/step/locale/en-US';
 import localeGroupForm from '@/views/form/group/locale/en-US';
 
@@ -36,6 +42,18 @@ export default {
   'menu.server.workplace': 'Workplace-Server',
   'menu.server.monitor': 'Monitor-Server',
   'menu.server': 'Service Management',
+  'menu.authority': 'Authority Management',
+  'menu.enterprise': 'Enterprise Management',
+  'menu.server.Server': 'Service Management',
+  'menu.server.MenuManagement': 'Menu Management',
+  'menu.server.Authority': 'Authority Management',
+  'menu.server.RoleManagement': 'Role Management',
+  'menu.server.AdministratorsManagement': 'Administrators Management',
+  'menu.server.Enterprise': 'Enterprise Management',
+  'menu.server.EnterpriseManagement': 'Enterprise Management',
+  'menu.server.EnterpriseMemberManagement': 'Enterprise Member Management',
+  'menu.server.User': 'User Center',
+  'menu.server.Setting': 'User Setting',
   'menu.menu': 'Menu',
   'menu.list': 'List',
   'menu.result': 'Result',
@@ -57,6 +75,10 @@ export default {
   ...localeSearchTable,
   ...localeCardList,
   ...localeMenuManagement,
+  ...localeRoleManagement,
+  ...localeAdministratorsManagement,
+  ...localeEnterpriseManagement,
+  ...localeEnterpriseMemberManagement,
   ...localeStepForm,
   ...localeGroupForm,
   ...localeBasicProfile,

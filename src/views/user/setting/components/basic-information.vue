@@ -7,21 +7,6 @@
     :wrapper-col-props="{ span: 16 }"
   >
     <a-form-item
-      field="email"
-      :label="$t('userSetting.basicInfo.form.label.email')"
-      :rules="[
-        {
-          required: true,
-          message: $t('userSetting.form.error.email.required'),
-        },
-      ]"
-    >
-      <a-input
-        v-model="formData.email"
-        :placeholder="$t('userSetting.basicInfo.placeholder.email')"
-      />
-    </a-form-item>
-    <a-form-item
       field="nickname"
       :label="$t('userSetting.basicInfo.form.label.nickname')"
       :rules="[
@@ -37,79 +22,42 @@
       />
     </a-form-item>
     <a-form-item
-      field="countryRegion"
-      :label="$t('userSetting.basicInfo.form.label.countryRegion')"
-      :rules="[
-        {
-          required: true,
-          message: $t('userSetting.form.error.countryRegion.required'),
-        },
-      ]"
-    >
-      <a-select
-        v-model="formData.countryRegion"
-        :placeholder="$t('userSetting.basicInfo.placeholder.area')"
-      >
-        <a-option value="China">中国</a-option>
-      </a-select>
-    </a-form-item>
-    <a-form-item
-      field="area"
-      :label="$t('userSetting.basicInfo.form.label.area')"
-      :rules="[
-        {
-          required: true,
-          message: $t('userSetting.form.error.area.required'),
-        },
-      ]"
-    >
-      <a-cascader
-        v-model="formData.area"
-        :placeholder="$t('userSetting.basicInfo.placeholder.area')"
-        :options="[
-          {
-            label: '北京',
-            value: 'beijing',
-            children: [
-              {
-                label: '北京',
-                value: 'beijing',
-                children: [
-                  {
-                    label: '朝阳',
-                    value: 'chaoyang',
-                  },
-                ],
-              },
-            ],
-          },
-        ]"
-        allow-clear
-      />
-    </a-form-item>
-    <a-form-item
-      field="address"
-      :label="$t('userSetting.basicInfo.form.label.address')"
+      field="password"
+      :label="$t('userSetting.basicInfo.form.label.password')"
     >
       <a-input
-        v-model="formData.address"
-        :placeholder="$t('userSetting.basicInfo.placeholder.address')"
+        v-model="formData.password"
+        :placeholder="$t('userSetting.basicInfo.placeholder.password')"
       />
     </a-form-item>
     <a-form-item
-      field="profile"
-      :label="$t('userSetting.basicInfo.form.label.profile')"
+      field="mobile"
+      :label="$t('userSetting.basicInfo.form.label.mobile')"
       :rules="[
         {
-          maxLength: 200,
-          message: $t('userSetting.form.error.profile.maxLength'),
+          required: true,
+          message: $t('userSetting.form.error.mobile.required'),
         },
       ]"
-      row-class="keep-margin"
     >
-      <a-textarea
-        v-model="formData.profile"
-        :placeholder="$t('userSetting.basicInfo.placeholder.profile')"
+      <a-input
+        v-model="formData.mobile"
+        :placeholder="$t('userSetting.basicInfo.placeholder.mobile')"
+      />
+    </a-form-item>
+    <a-form-item
+      field="email"
+      :label="$t('userSetting.basicInfo.form.label.email')"
+      :rules="[
+        {
+          required: true,
+          message: $t('userSetting.form.error.email.required'),
+        },
+      ]"
+    >
+      <a-input
+        v-model="formData.email"
+        :placeholder="$t('userSetting.basicInfo.placeholder.email')"
       />
     </a-form-item>
     <a-form-item>
@@ -127,23 +75,43 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue';
+  import { useI18n } from 'vue-i18n';
   import { FormInstance } from '@arco-design/web-vue/es/form';
   import { BasicInfoModel } from '@/api/user-center';
+  import useLoading from '@/hooks/loading';
+  import { Message } from '@arco-design/web-vue';
+  import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
+  import { getUserInfo, updateUserInfo } from '@/api/user';
 
   const formRef = ref<FormInstance>();
   const formData = ref<BasicInfoModel>({
-    email: '',
     nickname: '',
-    countryRegion: '',
-    area: '',
-    address: '',
-    profile: '',
+    password: '',
+    mobile: '',
+    email: '',
   });
-  const validate = async () => {
-    const res = await formRef.value?.validate();
-    if (!res) {
-      // do some thing
-      // you also can use html-type to submit
+  const errorMessage = ref('');
+  const { loading, setLoading } = useLoading(true);
+  const { t } = useI18n();
+  const validate = async ({
+    errors,
+    values,
+  }: {
+    errors: Record<string, ValidatedError> | undefined;
+    values: Record<string, any>;
+  }) => {
+    if (!errors) {
+      setLoading(true);
+      const formatForm = JSON.parse(JSON.stringify(formData.value));
+      try {
+        await updateUserInfo(formatForm);
+        Message.success(t('userSetting.form.edit.success'));
+      } catch (err) {
+        errorMessage.value = (err as Error).message;
+      } finally {
+        await getUserInfo();
+        setLoading(false);
+      }
     }
   };
   const reset = async () => {

@@ -2,7 +2,7 @@ import { DEFAULT_LAYOUT } from '@/router/constans';
 
 export default {
   path: '/user',
-  name: 'user',
+  name: 'User',
   component: DEFAULT_LAYOUT,
   meta: {
     locale: 'menu.user',
@@ -12,7 +12,7 @@ export default {
   },
   children: [
     {
-      path: 'info',
+      path: '/info',
       name: 'Info',
       component: () => import('@/views/user/info/index.vue'),
       meta: {
@@ -22,7 +22,7 @@ export default {
       },
     },
     {
-      path: 'setting',
+      path: '/setting',
       name: 'Setting',
       component: () => import('@/views/user/setting/index.vue'),
       meta: {

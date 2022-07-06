@@ -10,7 +10,9 @@ export default {
   'userSetting.title.basicInfo': 'Basic Information',
   'userSetting.title.socialInfo': 'Social Information',
   'userSetting.label.avatar': 'Avatar',
-  'userSetting.label.name': 'User Name',
+  'userSetting.label.username': 'User Name',
+  'userSetting.label.nickname': 'Nick Name',
+  'userSetting.label.email': 'Email',
   'userSetting.label.location': 'Office Location',
   'userSetting.label.introduction': 'Introduction',
   'userSetting.label.personalWebsite': 'Website',
@@ -28,10 +30,17 @@ export default {
   'userSetting.basicInfo.form.label.email': 'Email',
   'userSetting.basicInfo.placeholder.email': `Please enter your email address, such as xxx{'@'}bytedance.com`,
   'userSetting.form.error.email.required': 'Please enter email address',
+  'userSetting.basicInfo.form.label.mobile': 'Mobile',
+  'userSetting.basicInfo.placeholder.mobile': `Please enter your mobile`,
+  'userSetting.form.error.mobile.required': 'Please enter mobile',
   'userSetting.basicInfo.form.label.nickname': 'Nickname',
   'userSetting.basicInfo.placeholder.nickname': 'Please enter nickname',
   'userSetting.form.error.nickname.required': 'Please enter nickname',
-  'userSetting.basicInfo.form.label.countryRegion': 'Country/region',
+  'userSetting.basicInfo.form.label.password': 'Password',
+  'userSetting.basicInfo.placeholder.password':
+    'The password must contain at least six letters, digits, and special characters except Spaces.',
+  'userSetting.form.edit.success': 'Successfully Edited',
+    'userSetting.basicInfo.form.label.countryRegion': 'Country/region',
   'userSetting.basicInfo.placeholder.countryRegion':
     'Please select country/region',
   'userSetting.form.error.countryRegion.required':
@@ -52,7 +61,7 @@ export default {
     'Security Question',
   'userSetting.SecuritySettings.placeholder.securityQuestion':
     'You have not set the password protection question. The password protection question can effectively protect the account security.',
-  'userSetting.SecuritySettings.form.label.phone': 'Phone',
+  'userSetting.SecuritySettings.form.label.phone': 'Mobile',
   // 'userSetting.SecuritySettings.placeholder.phone': '已绑定：150******50',
   'userSetting.SecuritySettings.form.label.email': 'Email',
   'userSetting.SecuritySettings.placeholder.email':
