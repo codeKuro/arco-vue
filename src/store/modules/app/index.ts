@@ -46,28 +46,12 @@ const useAppStore = defineStore('app', {
       this.hideMenu = value;
     },
     async fetchServerMenuConfig() {
-      let notifiInstance: NotificationReturn | null = null;
       try {
-        notifiInstance = Notification.info({
-          id: 'menuNotice', // Keep the instance id the same
-          content: 'loading',
-          closable: true,
-        });
         const { data } = await getMenuList();
         this.serverMenu = transformRoutes(data.menuTree);
         console.log(this.serverMenu);
-        notifiInstance = Notification.success({
-          id: 'menuNotice',
-          content: 'success',
-          closable: true,
-        });
       } catch (error) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        notifiInstance = Notification.error({
-          id: 'menuNotice',
-          content: 'error',
-          closable: true,
-        });
       }
     },
   },

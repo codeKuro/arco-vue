@@ -26,23 +26,17 @@ const useUserStore = defineStore('user', {
   },
 
   actions: {
-    switchRoles() {
-      return new Promise((resolve) => {
-        this.role = this.role === 'user' ? 'admin' : 'user';
-        resolve(this.role);
-      });
-    },
     // Set user's information
     setInfo(partial: Partial<UserState>) {
       this.$patch(partial);
     },
 
-    // Reset user's information
+    // Reset user's rmation
     resetInfo() {
       this.$reset();
     },
 
-    // Get user's information
+    // Get user's rmation
     async info() {
       const res = await getUserInfo();
 

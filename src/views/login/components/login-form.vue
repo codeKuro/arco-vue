@@ -102,7 +102,7 @@
   import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
   import { useI18n } from 'vue-i18n';
   import { useStorage } from '@vueuse/core';
-  import { useUserStore } from '@/store';
+  import { useUserStore, useAppStore } from '@/store';
   import useLoading from '@/hooks/loading';
   import type { LoginData } from '@/api/user';
 
@@ -111,6 +111,7 @@
   const errorMessage = ref('');
   const { loading, setLoading } = useLoading();
   const userStore = useUserStore();
+  const appStore = useAppStore();
 
   const loginConfig = useStorage('login-config', {
     rememberPassword: true,
@@ -137,6 +138,7 @@
       setLoading(true);
       try {
         await userStore.login(values as LoginData);
+        await appStore.fetchServerMenuConfig();
         const { redirect, ...othersQuery } = router.currentRoute.value.query;
         router.push({
           // name: (redirect as string) || 'Workplace',
@@ -155,7 +157,7 @@
         loginConfig.value.captchaId = rememberPassword ? captchaId : '';
         loginConfig.value.captcha = rememberPassword ? captcha : '';
       } catch (err) {
-        console.log(err)
+        console.log(err);
         errorMessage.value = (err as Error).message;
       } finally {
         setLoading(false);

@@ -62,7 +62,7 @@
     </a-form-item>
     <a-form-item>
       <a-space>
-        <a-button type="primary" @click="validate">
+        <a-button type="primary" @click="submit">
           {{ $t('userSetting.save') }}
         </a-button>
         <a-button type="secondary" @click="reset">
@@ -93,25 +93,17 @@
   const errorMessage = ref('');
   const { loading, setLoading } = useLoading(true);
   const { t } = useI18n();
-  const validate = async ({
-    errors,
-    values,
-  }: {
-    errors: Record<string, ValidatedError> | undefined;
-    values: Record<string, any>;
-  }) => {
-    if (!errors) {
-      setLoading(true);
-      const formatForm = JSON.parse(JSON.stringify(formData.value));
-      try {
-        await updateUserInfo(formatForm);
-        Message.success(t('userSetting.form.edit.success'));
-      } catch (err) {
-        errorMessage.value = (err as Error).message;
-      } finally {
-        await getUserInfo();
-        setLoading(false);
-      }
+  const submit = async () => {
+    setLoading(true);
+    const formatForm = JSON.parse(JSON.stringify(formData.value));
+    try {
+      await updateUserInfo(formatForm);
+      Message.success(t('userSetting.form.edit.success'));
+    } catch (err) {
+      errorMessage.value = (err as Error).message;
+    } finally {
+      await getUserInfo();
+      setLoading(false);
     }
   };
   const reset = async () => {
