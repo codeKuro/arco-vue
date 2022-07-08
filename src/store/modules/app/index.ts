@@ -1,6 +1,4 @@
 import { defineStore } from 'pinia';
-import { Notification } from '@arco-design/web-vue';
-import type { NotificationReturn } from '@arco-design/web-vue/es/notification/interface';
 import type { RouteRecordNormalized } from 'vue-router';
 import defaultSettings from '@/config/settings.json';
 import { getMenuList } from '@/api/user';
@@ -8,6 +6,7 @@ import { transformRoutes } from '@/utils';
 import { AppState } from './types';
 
 const useAppStore = defineStore('app', {
+  persist: true,
   state: (): AppState => ({ ...defaultSettings }),
 
   getters: {

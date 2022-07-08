@@ -24,7 +24,8 @@ export default {
     {
       path: '/administrators-management',
       name: 'AdministratorsManagement',
-      component: () => import('@/views/authority/administrators-management/index.vue'),
+      component: () =>
+        import('@/views/authority/administrators-management/index.vue'),
       meta: {
         locale: 'menu.authority.administratorsManagement',
         requiresAuth: true,
