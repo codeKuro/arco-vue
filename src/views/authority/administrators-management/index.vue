@@ -220,9 +220,12 @@
         </a-form-item>
         <a-form-item>
           <a-space>
-            <a-button type="primary" html-type="submit">{{
-              $t('administratorsManagement.button.submit')
-            }}</a-button>
+            <a-button
+              :loading="loadingSubmit"
+              type="primary"
+              html-type="submit"
+              >{{ $t('administratorsManagement.button.submit') }}</a-button
+            >
             <a-button type="outline" @click="$refs.formRef.resetFields()">{{
               $t('administratorsManagement.button.reset')
             }}</a-button>
@@ -302,6 +305,7 @@
   const checkedKeys = ref([]);
   const checkStrictly = ref(false);
   const actionModel = ref();
+  const loadingSubmit = ref(false);
   const basePagination: Pagination = {
     page: 1,
     size: 10,
@@ -374,6 +378,7 @@
   }) => {
     if (!errors) {
       setLoading(true);
+      loadingSubmit.value = true;
       const formatForm = JSON.parse(JSON.stringify(formModel.value));
       if (actionModel.value === 'add') {
         try {
@@ -384,6 +389,7 @@
           errorMessage.value = (err as Error).message;
         } finally {
           setLoading(false);
+          loadingSubmit.value = false;
           visible.value = false;
         }
       } else {
@@ -395,6 +401,7 @@
           errorMessage.value = (err as Error).message;
         } finally {
           setLoading(false);
+          loadingSubmit.value = false;
           visible.value = false;
         }
       }
@@ -414,10 +421,10 @@
   };
   const handleClickConfirm = async () => {
     setLoading(true);
+    loadingSubmit.value = true;
     bandModel.value.roleIds = JSON.parse(JSON.stringify(checkedKeys.value));
     const formatForm = JSON.parse(JSON.stringify(bandModel.value));
     formatForm.roleIds = formatForm.roleIds.toString();
-    console.log(formatForm);
     try {
       const { data } = await bindAdministratorsRecord(formatForm);
       Message.success(t('administratorsManagement.form.bind.success'));
@@ -426,6 +433,7 @@
       // you can report use errorHandler or other
     } finally {
       setLoading(false);
+      loadingSubmit.value = false;
     }
   };
 </script>

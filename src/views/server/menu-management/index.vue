@@ -470,9 +470,12 @@
         </a-form-item>
         <a-form-item>
           <a-space>
-            <a-button type="primary" html-type="submit">{{
-              $t('menuManagement.button.submit')
-            }}</a-button>
+            <a-button
+              :loading="loadingSubmit"
+              type="primary"
+              html-type="submit"
+              >{{ $t('menuManagement.button.submit') }}</a-button
+            >
             <a-button type="outline" @click="$refs.formRef.resetFields()">{{
               $t('menuManagement.button.reset')
             }}</a-button>
@@ -538,6 +541,7 @@
   const popupVisible = ref(false);
   const actionModel = ref();
   const selectedKeys = ref([]);
+  const loadingSubmit = ref(false);
   const rowSelection = reactive({
     type: 'checkbox',
     showCheckedAll: true,
@@ -641,8 +645,8 @@
     values: Record<string, any>;
   }) => {
     if (!errors) {
-      console.log(actionModel.value);
       setLoading(true);
+      loadingSubmit.value = true;
       const formatForm = JSON.parse(JSON.stringify(formModel.value));
       if (actionModel.value === 'add') {
         formatForm.id = undefined;
@@ -654,6 +658,7 @@
           errorMessage.value = (err as Error).message;
         } finally {
           setLoading(false);
+          loadingSubmit.value = false;
           visible.value = false;
         }
       } else {
@@ -665,6 +670,7 @@
           errorMessage.value = (err as Error).message;
         } finally {
           setLoading(false);
+          loadingSubmit.value = false;
           visible.value = false;
         }
       }

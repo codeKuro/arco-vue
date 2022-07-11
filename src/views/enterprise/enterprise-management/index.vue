@@ -289,9 +289,12 @@
         </a-form-item>
         <a-form-item>
           <a-space>
-            <a-button type="primary" html-type="submit">{{
-              $t('enterpriseManagement.button.submit')
-            }}</a-button>
+            <a-button
+              :loading="loadingSubmit"
+              type="primary"
+              html-type="submit"
+              >{{ $t('enterpriseManagement.button.submit') }}</a-button
+            >
             <a-button type="outline" @click="$refs.formRef.resetFields()">{{
               $t('enterpriseManagement.button.reset')
             }}</a-button>
@@ -338,6 +341,7 @@
   const switchLoading = ref(false);
   const visible = ref(false);
   const actionModel = ref();
+  const loadingSubmit = ref(false);
   const basePagination: Pagination = {
     page: 1,
     size: 10,
@@ -423,6 +427,7 @@
   }) => {
     if (!errors) {
       setLoading(true);
+      loadingSubmit.value = true;
       const formatForm = JSON.parse(JSON.stringify(formModel.value));
       if (actionModel.value === 'add') {
         try {
@@ -433,6 +438,7 @@
           errorMessage.value = (err as Error).message;
         } finally {
           setLoading(false);
+          loadingSubmit.value = false;
           visible.value = false;
         }
       } else {
@@ -444,6 +450,7 @@
           errorMessage.value = (err as Error).message;
         } finally {
           setLoading(false);
+          loadingSubmit.value = false;
           visible.value = false;
         }
       }

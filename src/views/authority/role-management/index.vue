@@ -372,9 +372,12 @@
         </a-form-item>
         <a-form-item>
           <a-space>
-            <a-button type="primary" html-type="submit">{{
-              $t('roleManagement.button.submit')
-            }}</a-button>
+            <a-button
+              :loading="loadingSubmit"
+              type="primary"
+              html-type="submit"
+              >{{ $t('roleManagement.button.submit') }}</a-button
+            >
             <a-button type="outline" @click="$refs.formRef.resetFields()">{{
               $t('roleManagement.button.reset')
             }}</a-button>
@@ -441,6 +444,7 @@
     checkStrictly: true,
   });
   const treeData = ref<Array<TreeItem>>([]);
+  const loadingSubmit = ref(false);
   const typeOptions = computed<SelectOptionData[]>(() => [
     {
       label: t('roleManagement.form.type.1'),
@@ -538,13 +542,15 @@
   }) => {
     if (!errors) {
       setLoading(true);
+      loadingSubmit.value = true;
       const formatForm = JSON.parse(JSON.stringify(formModel.value));
-      console.log(formModel.value)
+      console.log(formModel.value);
       formatForm.nodeIds = formatForm.nodeIds.toString();
       if (actionModel.value === 'add') {
         try {
           await createRoleRecord(formatForm);
           Message.success(t('roleManagement.form.add.success'));
+          loadingSubmit.value = false;
           fetchData();
         } catch (err) {
           errorMessage.value = (err as Error).message;
@@ -556,6 +562,7 @@
         try {
           await updateRoleRecord(formatForm);
           Message.success(t('roleManagement.form.edit.success'));
+          loadingSubmit.value = false;
           fetchData();
         } catch (err) {
           errorMessage.value = (err as Error).message;
