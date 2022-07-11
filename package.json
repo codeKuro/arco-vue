@@ -8,8 +8,7 @@
   "scripts": {
     "dev": "vite --config ./config/vite.config.dev.ts",
     "build": "vite build --config ./config/vite.config.prod.ts",
-    "build_gary": "vite build --config ./config/vite.config.prod.ts",
-    "build_test": "vite build --config ./config/vite.config.dev.ts",
+    "build-test": "vite build --config ./config/vite.config.dev.ts",
     "report": "cross-env REPORT=true npm run build",
     "preview": "npm run build && vite preview --host",
     "type:check": "vue-tsc --noEmit --skipLibCheck",

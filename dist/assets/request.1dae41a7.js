@@ -1,0 +1,1 @@
+import{r as u}from"./vendor.e6e9099f.js";import{u as i}from"./loading.3e447ed2.js";function l(o,s=[],n=!0){const{loading:a,setLoading:r}=i(n),e=u(s);return o().then(t=>{e.value=t.data}).finally(()=>{r(!1)}),{loading:a,response:e}}export{l as u};
