@@ -1,1 +1,0 @@
-import{B as s}from"./vendor.e6e9099f.js";function a(){return s.post("/api/message/list")}function r(t){return s.post("/api/message/read",t)}function i(){return s.post("/api/chat/list")}export{a,i as q,r as s};

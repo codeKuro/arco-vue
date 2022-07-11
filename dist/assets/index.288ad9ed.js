@@ -1,1 +1,0 @@
-import{e as o,o as t,c as _,w as a,i as r}from"./vendor.e6e9099f.js";import{_ as s}from"./index.525cc014.js";const c={},n=r("Mili SaaS");function d(f,i){const e=o("a-layout-footer");return t(),_(e,{class:"footer"},{default:a(()=>[n]),_:1})}var u=s(c,[["render",d],["__scopeId","data-v-62fe346e"]]);export{u as F};
