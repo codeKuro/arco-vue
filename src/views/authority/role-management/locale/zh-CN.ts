@@ -1,7 +1,7 @@
 export default {
   'menu.authority.roleManagement': '角色管理',
-  'menu.card.tabOne': '总平台',
-  'menu.card.tabTwo': '业务平台',
+  'menu.card.tabOne': '业务平台',
+  'menu.card.tabTwo': '管理平台',
   'roleManagement.form.title': '标题',
   'roleManagement.form.title.add': '新增角色',
   'roleManagement.form.title.edit': '编辑角色',
@@ -18,7 +18,7 @@ export default {
   'roleManagement.form.status.1': '启用',
   'roleManagement.form.status.0': '禁用',
   'roleManagement.form.scopes': '作用平台',
-  'roleManagement.form.scopes.admin': '总平台',
+  'roleManagement.form.scopes.admin': '管理平台',
   'roleManagement.form.scopes.member': '业务平台',
   'roleManagement.form.placeholder.select': '请选择',
   'roleManagement.form.placeholder.input': '请输入',

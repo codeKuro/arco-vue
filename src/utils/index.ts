@@ -29,7 +29,8 @@ export const transformRoutes = (routes: any[]) => {
         path: it.uri,
         meta: {
           order: it.sort,
-          locale: `menu.server.${it.identify}`,
+          // locale: `menu.server.${it.identify}`,
+          locale: it.name,
         },
       };
       if (it.children instanceof Array && it.children.length > 0) {

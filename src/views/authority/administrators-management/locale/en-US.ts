@@ -7,6 +7,9 @@ export default {
   'administratorsManagement.form.username': 'Username',
   'administratorsManagement.form.nickname': 'Nickname',
   'administratorsManagement.form.password': 'Password',
+  'administratorsManagement.form.password.confirm': 'Confirm Password',
+  'administratorsManagement.form.password.confirm.errMsg':
+    'Password input is inconsistent',
   'administratorsManagement.form.mobile': 'Mobile',
   'administratorsManagement.form.email': 'Email',
   'administratorsManagement.form.avatar': 'Avatar',

@@ -1,7 +1,7 @@
 export default {
   'menu.server.menuManagement': '菜单管理',
-  'menu.card.tabOne': '总平台',
-  'menu.card.tabTwo': '业务平台',
+  'menu.card.tabOne': '业务平台',
+  'menu.card.tabTwo': '管理平台',
   'menuManagement.form.title': '标题',
   'menuManagement.form.title.add': '新增菜单',
   'menuManagement.form.title.edit': '编辑菜单',
@@ -26,7 +26,7 @@ export default {
   'menuManagement.form.isMenu.1': '是',
   'menuManagement.form.isMenu.0': '否',
   'menuManagement.form.scopes': '作用平台',
-  'menuManagement.form.scopes.admin': '总平台',
+  'menuManagement.form.scopes.admin': '管理平台',
   'menuManagement.form.scopes.member': '业务平台',
   'menuManagement.form.placeholder.select': '请选择',
   'menuManagement.form.placeholder.input': '请输入',

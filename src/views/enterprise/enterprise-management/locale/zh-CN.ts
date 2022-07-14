@@ -7,6 +7,8 @@ export default {
   'enterpriseManagement.form.name': '企业名称',
   'enterpriseManagement.form.nickname': '昵称',
   'enterpriseManagement.form.password': '密码',
+  'enterpriseManagement.form.password.confirm': '确认密码',
+  'enterpriseManagement.form.password.confirm.errMsg': '密码输入不一致',
   'enterpriseManagement.form.email': '邮箱',
   'enterpriseManagement.form.maxTeamNum': '企业团队数',
   'enterpriseManagement.form.maxMemberNum': '企业总成员数',

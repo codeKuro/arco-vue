@@ -24,10 +24,26 @@
     <a-form-item
       field="password"
       :label="$t('userSetting.basicInfo.form.label.password')"
+      :rules="[
+        {
+          required: true,
+          message: $t('userSetting.basicInfo.placeholder.password'),
+        },
+      ]"
     >
-      <a-input
+      <a-input-password
         v-model="formData.password"
         :placeholder="$t('userSetting.basicInfo.placeholder.password')"
+      />
+    </a-form-item>
+    <a-form-item
+      field="passwordConfirm"
+      :label="$t('userSetting.basicInfo.form.label.password.confirm')"
+      :rules="rulesConfirmPassword"
+    >
+      <a-input-password
+        v-model="passwordConfirm"
+        :placeholder="$t('userSetting.basicInfo.placeholder.password.confirm')"
       />
     </a-form-item>
     <a-form-item
@@ -90,9 +106,30 @@
     mobile: '',
     email: '',
   });
+  const passwordConfirm = ref('');
   const errorMessage = ref('');
   const { loading, setLoading } = useLoading(true);
   const { t } = useI18n();
+  const rulesConfirmPassword = [
+    {
+      required: true,
+      message: t('userSetting.basicInfo.placeholder.password.confirm'),
+    },
+    {
+      validator: (value: string, cb: (arg0: string) => void) => {
+        return new Promise<void>((resolve) => {
+          window.setTimeout(() => {
+            if (value !== formData.value.password) {
+              cb(
+                t('userSetting.basicInfo.placeholder.password.confirm.errMsg')
+              );
+            }
+            resolve();
+          }, 100);
+        });
+      },
+    },
+  ];
   const submit = async () => {
     setLoading(true);
     const formatForm = JSON.parse(JSON.stringify(formData.value));

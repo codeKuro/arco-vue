@@ -14,7 +14,8 @@ export default {
     {
       path: '/enterprise-management',
       name: 'EnterpriseManagement',
-      component: () => import('@/views/enterprise/enterprise-management/index.vue'),
+      component: () =>
+        import('@/views/enterprise/enterprise-management/index.vue'),
       meta: {
         locale: 'menu.enterprise.enterpriseManagement',
         requiresAuth: true,
@@ -24,7 +25,8 @@ export default {
     {
       path: '/enterprise-member-management',
       name: 'EnterpriseMemberManagement',
-      component: () => import('@/views/enterprise/enterprise-member-management/index.vue'),
+      component: () =>
+        import('@/views/enterprise/enterprise-member-management/index.vue'),
       meta: {
         locale: 'menu.enterprise.enterpriseMemberManagement',
         requiresAuth: true,

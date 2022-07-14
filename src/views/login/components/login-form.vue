@@ -41,26 +41,9 @@
           </template>
         </a-input-password>
       </a-form-item>
-      <!-- <a-form-item
-        field="captchaId"
-        :rules="[
-          { required: true, message: $t('login.form.captchaId.errMsg') },
-        ]"
-        :validate-trigger="['change', 'blur']"
-        hide-label
-      >
-        <a-input
-          v-model="userInfo.captchaId"
-          :placeholder="$t('login.form.captchaId.placeholder')"
-        >
-          <template #prefix>
-            <icon-user />
-          </template>
-        </a-input>
-      </a-form-item> -->
-      <!-- <a-form-item
+      <a-form-item
         field="captcha"
-        :rules="[{ required: true, message: $t('login.form.captcha.errMsg') }]"
+        :rules="[{ required: true, message: $t('login.form.password.errMsg') }]"
         :validate-trigger="['change', 'blur']"
         hide-label
       >
@@ -69,10 +52,19 @@
           :placeholder="$t('login.form.captcha.placeholder')"
         >
           <template #prefix>
-            <icon-user />
+            <icon-image />
+          </template>
+          <template #suffix>
+            <a-image
+              width="100"
+              height="32"
+              :src="captcha"
+              :preview="false"
+              @click="fetchData"
+            />
           </template>
         </a-input>
-      </a-form-item> -->
+      </a-form-item>
       <a-space :size="16" direction="vertical">
         <div class="login-form-password-actions">
           <a-checkbox
@@ -82,13 +74,9 @@
           >
             {{ $t('login.form.rememberPassword') }}
           </a-checkbox>
-          <a-link>{{ $t('login.form.forgetPassword') }}</a-link>
         </div>
         <a-button type="primary" html-type="submit" long :loading="loading">
           {{ $t('login.form.login') }}
-        </a-button>
-        <a-button type="text" long class="login-form-register-btn">
-          {{ $t('login.form.register') }}
         </a-button>
       </a-space>
     </a-form>
@@ -97,7 +85,7 @@
 
 <script lang="ts" setup>
   import { ref, reactive } from 'vue';
-  import { useRouter } from 'vue-router';
+  import { useRouter, useRoute } from 'vue-router';
   import { Message } from '@arco-design/web-vue';
   import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
   import { useI18n } from 'vue-i18n';
@@ -105,28 +93,41 @@
   import { useUserStore, useAppStore } from '@/store';
   import useLoading from '@/hooks/loading';
   import type { LoginData } from '@/api/user';
+  import { getCaptcha } from '@/api/user';
 
   const router = useRouter();
   const { t } = useI18n();
   const errorMessage = ref('');
+  const captcha = ref('');
   const { loading, setLoading } = useLoading();
   const userStore = useUserStore();
   const appStore = useAppStore();
 
   const loginConfig = useStorage('login-config', {
     rememberPassword: true,
-    username: 'admin', // 演示默认值
-    password: '123456', // demo default value
-    captchaId: '8dUax8dNMvXsOy8VOJss',
-    captcha: '12435',
+    username: 'admin',
+    password: 'admin',
   });
   const userInfo = reactive({
     username: loginConfig.value.username,
     password: loginConfig.value.password,
-    captchaId: loginConfig.value.captchaId,
-    captcha: loginConfig.value.captcha,
+    captchaId: '',
+    captcha: '',
   });
 
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getCaptcha();
+      userInfo.captchaId = data.captchaId;
+      captcha.value = data.picPath;
+    } catch (err) {
+      // you can report use errorHandler or other
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchData();
   const handleSubmit = async ({
     errors,
     values,
@@ -141,7 +142,7 @@
         await appStore.fetchServerMenuConfig();
         const { redirect, ...othersQuery } = router.currentRoute.value.query;
         router.push({
-          // name: (redirect as string) || 'Workplace',
+          // name: (redirect as string) || 'MenuManagement',
           name: (redirect as string) || 'MenuManagement',
           query: {
             ...othersQuery,
@@ -149,15 +150,12 @@
         });
         Message.success(t('login.form.login.success'));
         const { rememberPassword } = loginConfig.value;
-        const { username, password, captchaId, captcha } = values;
+        const { username, password } = values;
         // 实际生产环境需要进行加密存储。
         // The actual production environment requires encrypted storage.
         loginConfig.value.username = rememberPassword ? username : '';
         loginConfig.value.password = rememberPassword ? password : '';
-        loginConfig.value.captchaId = rememberPassword ? captchaId : '';
-        loginConfig.value.captcha = rememberPassword ? captcha : '';
       } catch (err) {
-        console.log(err);
         errorMessage.value = (err as Error).message;
       } finally {
         setLoading(false);

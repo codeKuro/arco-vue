@@ -32,14 +32,6 @@
                 </a-popconfirm>
               </a-space>
             </a-col>
-            <!-- <a-col :span="8" style="text-align: right">
-              <a-button>
-                <template #icon>
-                  <icon-download />
-                </template>
-                {{ $t('menuManagement.operation.download') }}
-              </a-button>
-            </a-col> -->
           </a-row>
           <a-table
             v-if="activeKey == 1"
@@ -52,14 +44,14 @@
             :pagination="false"
           >
             <template #columns>
-              <a-table-column
+              <!-- <a-table-column
                 :title="$t('menuManagement.columns.type')"
                 data-index="type"
               >
                 <template #cell="{ record }">
                   {{ $t(`menuManagement.form.type.${record.type}`) }}
                 </template>
-              </a-table-column>
+              </a-table-column> -->
               <a-table-column
                 :title="$t('menuManagement.columns.name')"
                 data-index="name"
@@ -192,14 +184,14 @@
             :pagination="false"
           >
             <template #columns>
-              <a-table-column
+              <!-- <a-table-column
                 :title="$t('menuManagement.columns.type')"
                 data-index="type"
               >
                 <template #cell="{ record }">
                   {{ $t(`menuManagement.form.type.${record.type}`) }}
                 </template>
-              </a-table-column>
+              </a-table-column> -->
               <a-table-column
                 :title="$t('menuManagement.columns.name')"
                 data-index="name"
@@ -253,9 +245,6 @@
                 data-index="operations"
               >
                 <template #cell="{ record }">
-                  <!-- <a-button type="text" size="small">
-                    {{ $t('menuManagement.columns.operations.view') }}
-                  </a-button> -->
                   <a-button
                     status="success"
                     size="small"
@@ -266,22 +255,6 @@
                     </template>
                     {{ $t('menuManagement.columns.operations.edit') }}
                   </a-button>
-                  <!-- <a-popconfirm
-                    :content="$t('menuManagement.button.confirmation.delete')"
-                    @ok="handleClickConfirm"
-                    @cancel="handleClickcancel"
-                  >
-                    <a-button
-                      type="text"
-                      size="small"
-                      @click="handleClickDelete(record)"
-                    >
-                      <template #icon>
-                        <icon-delete />
-                      </template>
-                      {{ $t('menuManagement.columns.operations.delete') }}
-                    </a-button>
-                  </a-popconfirm> -->
                 </template>
               </a-table-column>
             </template>
@@ -306,6 +279,7 @@
         @submit="handleSubmit"
       >
         <a-form-item
+          v-show="false"
           field="type"
           :label="$t('menuManagement.form.type')"
           :rules="[
@@ -409,11 +383,11 @@
         <a-form-item field="scopes" :label="$t('menuManagement.form.scopes')">
           <a-space size="large">
             <a-radio-group v-model="formModel.scopes">
-              <a-radio value="admin" :disabled="true">{{
-                $t('menuManagement.form.scopes.admin')
-              }}</a-radio>
               <a-radio value="member" :disabled="true">{{
                 $t('menuManagement.form.scopes.member')
+              }}</a-radio>
+              <a-radio value="admin" :disabled="true">{{
+                $t('menuManagement.form.scopes.admin')
               }}</a-radio>
             </a-radio-group>
           </a-space>
@@ -560,8 +534,8 @@
   ]);
   const fetchData = async (
     params: MenuParams = activeKey.value === '1'
-      ? { scopes: 'admin' }
-      : { scopes: 'member' }
+      ? { scopes: 'member' }
+      : { scopes: 'admin' }
   ) => {
     setLoading(true);
     console.log(activeKey);
@@ -584,9 +558,9 @@
     actionModel.value = 'add';
     formRef.value?.resetFields();
     if (activeKey.value === '1') {
-      formModel.value.scopes = 'admin';
-    } else {
       formModel.value.scopes = 'member';
+    } else {
+      formModel.value.scopes = 'admin';
     }
     console.log(formModel);
     visible.value = true;

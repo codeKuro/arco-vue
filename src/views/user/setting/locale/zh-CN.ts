@@ -39,6 +39,9 @@ export default {
   'userSetting.basicInfo.form.label.password': '密码',
   'userSetting.basicInfo.placeholder.password':
     '密码至少6位字符，支持数字、字母和除空格外的特殊字符。',
+  'userSetting.basicInfo.form.label.password.confirm': '确认密码',
+  'userSetting.basicInfo.placeholder.password.confirm': '请确认密码',
+  'userSetting.basicInfo.placeholder.password.confirm.errMsg': '密码输入不一致',
   'userSetting.form.edit.success': '编辑成功',
   'userSetting.basicInfo.form.label.countryRegion': '国家/地区',
   'userSetting.basicInfo.placeholder.countryRegion': '请选择',

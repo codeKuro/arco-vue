@@ -10,7 +10,7 @@
       <a-row style="margin-bottom: 16px">
         <a-col :flex="1">
           <a-form
-            :model="formModel"
+            :model="searchModel"
             :label-col-props="{ span: 6 }"
             :wrapper-col-props="{ span: 18 }"
             label-align="left"
@@ -22,7 +22,7 @@
                   :label="$t('enterpriseManagement.form.name')"
                 >
                   <a-input
-                    v-model="formModel.name"
+                    v-model="searchModel.name"
                     :placeholder="
                       $t('enterpriseManagement.form.placeholder.input')
                     "
@@ -35,7 +35,7 @@
                   :label="$t('enterpriseManagement.form.status')"
                 >
                   <a-select
-                    v-model="formModel.status"
+                    v-model="searchModel.status"
                     :options="statusOptions"
                     :placeholder="$t('enterpriseManagement.form.selectDefault')"
                   />
@@ -47,7 +47,7 @@
                   :label="$t('enterpriseManagement.form.createdAt')"
                 >
                   <a-range-picker
-                    v-model="formModel.createdTime"
+                    v-model="searchModel.createdTime"
                     style="width: 100%"
                   />
                 </a-form-item>
@@ -104,6 +104,22 @@
             data-index="name"
           />
           <a-table-column
+            :title="$t('enterpriseManagement.columns.maxTeamNum')"
+            data-index="maxTeamNum"
+          />
+          <a-table-column
+            :title="$t('enterpriseManagement.columns.teamNum')"
+            data-index="teamNum"
+          />
+          <a-table-column
+            :title="$t('enterpriseManagement.columns.maxMemberNum')"
+            data-index="maxMemberNum"
+          />
+          <a-table-column
+            :title="$t('enterpriseManagement.columns.createdAt')"
+            data-index="createdAt"
+          />
+          <a-table-column
             :title="$t('enterpriseManagement.columns.status')"
             data-index="status"
           >
@@ -126,22 +142,6 @@
               </a-space>
             </template>
           </a-table-column>
-          <a-table-column
-            :title="$t('enterpriseManagement.columns.maxTeamNum')"
-            data-index="maxTeamNum"
-          />
-          <a-table-column
-            :title="$t('enterpriseManagement.columns.teamNum')"
-            data-index="teamNum"
-          />
-          <a-table-column
-            :title="$t('enterpriseManagement.columns.maxMemberNum')"
-            data-index="maxMemberNum"
-          />
-          <a-table-column
-            :title="$t('enterpriseManagement.columns.createdAt')"
-            data-index="createdAt"
-          />
           <a-table-column
             :title="$t('enterpriseManagement.columns.operations')"
             :align="'center'"
@@ -266,8 +266,18 @@
           ]"
           :validate-trigger="['change', 'input']"
         >
-          <a-input
+          <a-input-password
             v-model="formModel.password"
+            :placeholder="$t('enterpriseManagement.form.placeholder.input')"
+          />
+        </a-form-item>
+        <a-form-item
+          field="passwordConfirm"
+          :label="$t('enterpriseManagement.form.password.confirm')"
+          :rules="rulesConfirmPassword"
+        >
+          <a-input-password
+            v-model="formModel.passwordConfirm"
             :placeholder="$t('enterpriseManagement.form.placeholder.input')"
           />
         </a-form-item>
@@ -323,7 +333,7 @@
   import { FormInstance } from '@arco-design/web-vue/es/form';
   import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
 
-  const generateFormModel = () => {
+  const searchFormModel = () => {
     return {
       name: '',
       status: -1,
@@ -332,10 +342,22 @@
       createdTime: [],
     };
   };
+  const generateFormModel = () => {
+    return {
+      name: '',
+      maxTeamNum: '',
+      maxMemberNum: '',
+      nickname: '',
+      password: '',
+      passwordConfirm: '',
+      email: '',
+    };
+  };
   const errorMessage = ref('');
   const { loading, setLoading } = useLoading(true);
   const { t } = useI18n();
   const renderData = ref<EnterpriseRecord[]>([]);
+  const searchModel = ref(searchFormModel());
   const formRef = ref<FormInstance>();
   const formModel = ref(generateFormModel());
   const switchLoading = ref(false);
@@ -363,6 +385,24 @@
       value: 1,
     },
   ]);
+  const rulesConfirmPassword = [
+    {
+      required: true,
+      message: t('enterpriseManagement.form.placeholder.input'),
+    },
+    {
+      validator: (value: string, cb: (arg0: string) => void) => {
+        return new Promise<void>((resolve) => {
+          window.setTimeout(() => {
+            if (value !== formModel.value.password) {
+              cb(t('enterpriseManagement.form.password.confirm.errMsg'));
+            }
+            resolve();
+          }, 100);
+        });
+      },
+    },
+  ];
   const fetchData = async (
     params: EnterpriseParams = { page: 1, size: 10 }
   ) => {
@@ -379,12 +419,17 @@
     }
   };
   const search = () => {
-    console.log(formModel.value);
-    const formatForm = JSON.parse(JSON.stringify(formModel.value));
-    // eslint-disable-next-line prefer-destructuring
-    formatForm.create_start_time = formatForm.createdTime[0];
-    // eslint-disable-next-line prefer-destructuring
-    formatForm.create_end_time = formatForm.createdTime[1];
+    console.log(searchModel.value);
+    const formatForm = JSON.parse(JSON.stringify(searchModel.value));
+    if (
+      formatForm.createdTime instanceof Array &&
+      formatForm.createdTime.length > 0
+    ) {
+      // eslint-disable-next-line prefer-destructuring
+      formatForm.create_start_time = formatForm.createdTime[0];
+      // eslint-disable-next-line prefer-destructuring
+      formatForm.create_end_time = formatForm.createdTime[1];
+    }
     fetchData({
       ...basePagination,
       ...formatForm,
@@ -395,7 +440,7 @@
   };
   fetchData();
   const reset = () => {
-    formModel.value = generateFormModel();
+    searchModel.value = searchFormModel();
   };
   const handleClickAdd = async () => {
     formRef.value?.resetFields();

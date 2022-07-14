@@ -9,6 +9,11 @@ export interface LoginData {
   captcha: string;
 }
 
+export interface CaptchaRes {
+  captchaId: string;
+  picPath: string;
+}
+
 export interface LoginRes {
   token: string;
 }
@@ -22,6 +27,10 @@ export interface infoData {
 
 export interface infoRes {
   id: string;
+}
+
+export function getCaptcha() {
+  return axios.get<CaptchaRes>('/admin/v1/captcha');
 }
 
 export function login(data: LoginData) {

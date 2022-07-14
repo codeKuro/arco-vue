@@ -7,6 +7,9 @@ export default {
   'enterpriseManagement.form.username': 'Username',
   'enterpriseManagement.form.nickname': 'Nickname',
   'enterpriseManagement.form.password': 'Password',
+  'enterpriseManagement.form.password.confirm': 'Confirm Password',
+  'enterpriseManagement.form.password.confirm.errMsg':
+    'Password input is inconsistent',
   'enterpriseManagement.form.email': 'Email',
   'enterpriseManagement.form.maxTeamNum': 'Total Team',
   'enterpriseManagement.form.maxMemberNum': 'Total Member',

@@ -7,6 +7,8 @@ export default {
   'administratorsManagement.form.username': '用户名',
   'administratorsManagement.form.nickname': '昵称',
   'administratorsManagement.form.password': '密码',
+  'administratorsManagement.form.password.confirm': '确认密码',
+  'administratorsManagement.form.password.confirm.errMsg': '密码输入不一致',
   'administratorsManagement.form.mobile': '手机号',
   'administratorsManagement.form.email': '邮箱',
   'administratorsManagement.form.avatar': '用户头像',

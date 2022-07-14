@@ -40,7 +40,7 @@ export default {
   'userSetting.basicInfo.placeholder.password':
     'The password must contain at least six letters, digits, and special characters except Spaces.',
   'userSetting.form.edit.success': 'Successfully Edited',
-    'userSetting.basicInfo.form.label.countryRegion': 'Country/region',
+  'userSetting.basicInfo.form.label.countryRegion': 'Country/region',
   'userSetting.basicInfo.placeholder.countryRegion':
     'Please select country/region',
   'userSetting.form.error.countryRegion.required':
@@ -57,6 +57,11 @@ export default {
   'userSetting.SecuritySettings.form.label.password': 'Login Password',
   'userSetting.SecuritySettings.placeholder.password':
     'Has been set. The password must contain at least six letters, digits, and special characters except Spaces. The password must contain both uppercase and lowercase letters.',
+  'userSetting.basicInfo.form.label.password.confirm': 'Confirm Password',
+  'userSetting.basicInfo.placeholder.password.confirm':
+    'Please confirm the password.',
+  'userSetting.basicInfo.placeholder.password.confirm.errMsg':
+    'Password input is inconsistent.',
   'userSetting.SecuritySettings.form.label.securityQuestion':
     'Security Question',
   'userSetting.SecuritySettings.placeholder.securityQuestion':

@@ -1,7 +1,7 @@
 export default {
   'menu.server.menuManagement': 'Menu Management',
-  'menu.card.tabOne': 'Total Platform',
-  'menu.card.tabTwo': 'Tenant',
+  'menu.card.tabOne': 'Tenant',
+  'menu.card.tabTwo': 'Total Platform',
   'menuManagement.form.title': 'Title',
   'menuManagement.form.title.add': 'Add Form',
   'menuManagement.form.title.edit': 'Edit Form',

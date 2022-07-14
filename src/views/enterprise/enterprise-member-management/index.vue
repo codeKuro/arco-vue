@@ -208,10 +208,15 @@
   const search = () => {
     console.log(formModel.value);
     const formatForm = JSON.parse(JSON.stringify(formModel.value));
-    // eslint-disable-next-line prefer-destructuring
-    formatForm.create_start_time = formatForm.createdTime[0];
-    // eslint-disable-next-line prefer-destructuring
-    formatForm.create_end_time = formatForm.createdTime[1];
+    if (
+      formatForm.createdTime instanceof Array &&
+      formatForm.createdTime.length > 0
+    ) {
+      // eslint-disable-next-line prefer-destructuring
+      formatForm.create_start_time = formatForm.createdTime[0];
+      // eslint-disable-next-line prefer-destructuring
+      formatForm.create_end_time = formatForm.createdTime[1];
+    }
     fetchData({
       ...basePagination,
       ...formatForm,

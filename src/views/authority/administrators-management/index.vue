@@ -171,8 +171,18 @@
           ]"
           :validate-trigger="['change', 'input']"
         >
-          <a-input
+          <a-input-password
             v-model="formModel.password"
+            :placeholder="$t('administratorsManagement.form.placeholder.input')"
+          />
+        </a-form-item>
+        <a-form-item
+          field="passwordConfirm"
+          :label="$t('administratorsManagement.form.password.confirm')"
+          :rules="rulesConfirmPassword"
+        >
+          <a-input-password
+            v-model="formModel.passwordConfirm"
             :placeholder="$t('administratorsManagement.form.placeholder.input')"
           />
         </a-form-item>
@@ -275,6 +285,7 @@
       username: '',
       nickname: '',
       password: '',
+      passwordConfirm: '',
       mobile: '',
       email: '',
       avatar: '',
@@ -313,6 +324,24 @@
   const pagination = reactive({
     ...basePagination,
   });
+  const rulesConfirmPassword = [
+    {
+      required: true,
+      message: t('administratorsManagement.form.placeholder.input'),
+    },
+    {
+      validator: (value: string, cb: (arg0: string) => void) => {
+        return new Promise<void>((resolve) => {
+          window.setTimeout(() => {
+            if (value !== formModel.value.password) {
+              cb(t('administratorsManagement.form.password.confirm.errMsg'));
+            }
+            resolve();
+          }, 100);
+        });
+      },
+    },
+  ];
   const fetchData = async (
     params: AdministratorsParams = { page: 1, size: 10 }
   ) => {

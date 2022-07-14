@@ -44,14 +44,14 @@
             :pagination="false"
           >
             <template #columns>
-              <a-table-column
+              <!-- <a-table-column
                 :title="$t('roleManagement.columns.type')"
                 data-index="type"
               >
                 <template #cell="{ record }">
                   {{ $t(`roleManagement.form.type.${record.type}`) }}
                 </template>
-              </a-table-column>
+              </a-table-column> -->
               <a-table-column
                 :title="$t('roleManagement.columns.id')"
                 data-index="id"
@@ -138,14 +138,6 @@
                 </a-popconfirm>
               </a-space>
             </a-col>
-            <a-col :span="8" style="text-align: right">
-              <a-button>
-                <template #icon>
-                  <icon-download />
-                </template>
-                {{ $t('roleManagement.operation.download') }}
-              </a-button>
-            </a-col>
           </a-row>
           <a-table
             v-if="activeKey == 2"
@@ -158,14 +150,14 @@
             :pagination="false"
           >
             <template #columns>
-              <a-table-column
+              <!-- <a-table-column
                 :title="$t('roleManagement.columns.type')"
                 data-index="type"
               >
                 <template #cell="{ record }">
                   {{ $t(`roleManagement.form.type.${record.type}`) }}
                 </template>
-              </a-table-column>
+              </a-table-column> -->
               <a-table-column
                 :title="$t('roleManagement.columns.id')"
                 data-index="id"
@@ -248,6 +240,7 @@
         @submit="handleSubmit"
       >
         <a-form-item
+          v-show="false"
           field="type"
           :label="$t('roleManagement.form.type')"
           :rules="[
@@ -457,8 +450,8 @@
   ]);
   const fetchData = async (
     params: RoleParams = activeKey.value === '1'
-      ? { scopes: 'admin' }
-      : { scopes: 'member' }
+      ? { scopes: 'member' }
+      : { scopes: 'admin' }
   ) => {
     setLoading(true);
     try {
@@ -481,9 +474,9 @@
     actionModel.value = 'add';
     formRef.value?.resetFields();
     if (activeKey.value === '1') {
-      formModel.value.scopes = 'admin';
-    } else {
       formModel.value.scopes = 'member';
+    } else {
+      formModel.value.scopes = 'admin';
     }
     visible.value = true;
   };
