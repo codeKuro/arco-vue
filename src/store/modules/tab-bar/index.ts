@@ -13,7 +13,6 @@ const formatTag = (route: RouteLocationNormalized): TagProps => {
 };
 
 const useAppStore = defineStore('tabBar', {
-  persist: true,
   state: (): TabBarState => ({
     cacheTabList: new Set(),
     tagList: [

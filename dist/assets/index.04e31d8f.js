@@ -1,1 +1,0 @@
-import{_ as o}from"./index.fd658db6.js";import{A as a,aC as t,aF as _,aL as r,b9 as c}from"./arco.cef754ac.js";const s={},n=r("Mili SaaS");function d(i,f){const e=c;return a(),t(e,{class:"footer"},{default:_(()=>[n]),_:1})}var l=o(s,[["render",d],["__scopeId","data-v-11533278"]]);export{l as F};

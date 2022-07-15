@@ -8,7 +8,6 @@ import { AppState } from './types';
 const useAppStore = defineStore('app', {
   persist: true,
   state: (): AppState => ({ ...defaultSettings }),
-
   getters: {
     appCurrentSetting(state: AppState): AppState {
       return { ...state };

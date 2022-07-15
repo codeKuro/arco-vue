@@ -42,6 +42,7 @@
             :bordered="false"
             :row-selection="rowSelection"
             :pagination="false"
+            :default-expand-all-rows="true"
           >
             <template #columns>
               <!-- <a-table-column
@@ -182,6 +183,7 @@
             :bordered="false"
             :row-selection="rowSelection"
             :pagination="false"
+            :default-expand-all-rows="true"
           >
             <template #columns>
               <!-- <a-table-column

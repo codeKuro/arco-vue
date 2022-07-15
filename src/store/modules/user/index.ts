@@ -59,7 +59,7 @@ const useUserStore = defineStore('user', {
       await userLogout();
       this.resetInfo();
       clearToken();
-      clearApp();
+      // clearApp();
       removeRouteListener();
     },
   },

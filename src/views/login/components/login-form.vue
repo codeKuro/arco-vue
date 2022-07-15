@@ -43,7 +43,7 @@
       </a-form-item>
       <a-form-item
         field="captcha"
-        :rules="[{ required: true, message: $t('login.form.password.errMsg') }]"
+        :rules="[{ required: true, message: $t('login.form.captcha.errMsg') }]"
         :validate-trigger="['change', 'blur']"
         hide-label
       >
