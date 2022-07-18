@@ -47,7 +47,6 @@ const useAppStore = defineStore('app', {
       try {
         const { data } = await getMenuList();
         this.serverMenu = transformRoutes(data.menuTree);
-        console.log(this.serverMenu);
       } catch (error) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       }

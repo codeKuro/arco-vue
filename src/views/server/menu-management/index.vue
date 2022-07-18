@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <Breadcrumb :items="['menu.server', 'menu.server.menuManagement']" />
-    <a-card class="general-card" :title="$t('menu.server.menuManagement')">
+    <!-- <Breadcrumb :items="['menu.server', 'menu.server.menuManagement']" /> -->
+    <a-card class="general-card">
       <a-tabs
         v-model="activeKey"
         default-active-key="1"
@@ -77,7 +77,11 @@
               <a-table-column
                 :title="$t('menuManagement.columns.icon')"
                 data-index="icon"
-              />
+              >
+                <template #cell="{ record }">
+                  <component :is="record.icon" style="font-size: 18px" />
+                </template>
+              </a-table-column>
               <a-table-column
                 :title="$t('menuManagement.columns.status')"
                 data-index="status"
@@ -218,7 +222,11 @@
               <a-table-column
                 :title="$t('menuManagement.columns.icon')"
                 data-index="icon"
-              />
+              >
+                <template #cell="{ record }">
+                  <component :is="record.icon" style="font-size: 18px" />
+                </template>
+              </a-table-column>
               <a-table-column
                 :title="$t('menuManagement.columns.status')"
                 data-index="status"
@@ -677,7 +685,7 @@
 
 <style scoped lang="less">
   .container {
-    padding: 0 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
   }
 
   :deep(.arco-table-th) {

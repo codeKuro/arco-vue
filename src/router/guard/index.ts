@@ -6,6 +6,7 @@ import setupServerPermissionGuard from './serverPermission';
 function setupPageGuard(router: Router) {
   router.beforeEach(async (to) => {
     // emit route change
+    console.log(111111111111)
     setRouteEmitter(to);
   });
 }

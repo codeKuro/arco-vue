@@ -1,5 +1,5 @@
 export default {
-  'menu.server.menuManagement': '菜单管理',
+  'menu.server.menuManagement': '节点管理',
   'menu.card.tabOne': '业务平台',
   'menu.card.tabTwo': '管理平台',
   'menuManagement.form.title': '标题',

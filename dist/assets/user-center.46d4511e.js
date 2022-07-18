@@ -1,1 +1,0 @@
-import{c as t}from"./index.97a7fd5a.js";function e(){return t.post("/api/user/my-project/list")}function i(){return t.post("/api/user/my-team/list")}function u(){return t.post("/api/user/latest-activity")}function o(s,r){return t.post("/api/user/upload",s,r)}export{u as a,i as b,e as q,o as u};

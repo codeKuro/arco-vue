@@ -1,5 +1,5 @@
 const TOKEN_KEY = 'token';
-const APP_KEY = 'app';
+const SERVEMENU_KEY = 'servemenu';
 
 const isLogin = () => {
   return !!localStorage.getItem(TOKEN_KEY);
@@ -17,8 +17,19 @@ const clearToken = () => {
   localStorage.removeItem(TOKEN_KEY);
 };
 
-const clearApp = () => {
-  localStorage.removeItem(APP_KEY);
+const setServeMenu = (data: any) => {
+  localStorage.setItem(SERVEMENU_KEY, data);
 };
 
-export { isLogin, getToken, setToken, clearToken, clearApp };
+const clearServeMenu = () => {
+  localStorage.removeItem(SERVEMENU_KEY);
+};
+
+export {
+  isLogin,
+  getToken,
+  setToken,
+  clearToken,
+  setServeMenu,
+  clearServeMenu,
+};

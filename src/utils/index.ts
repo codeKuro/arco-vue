@@ -29,6 +29,7 @@ export const transformRoutes = (routes: any[]) => {
         path: it.uri,
         meta: {
           order: it.sort,
+          icon: it.icon,
           // locale: `menu.server.${it.identify}`,
           locale: it.name,
         },

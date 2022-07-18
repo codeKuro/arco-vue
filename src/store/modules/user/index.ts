@@ -5,7 +5,7 @@ import {
   getUserInfo,
   LoginData,
 } from '@/api/user';
-import { setToken, clearToken, clearApp } from '@/utils/auth';
+import { setToken, clearToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
 import { UserState } from './types';
 

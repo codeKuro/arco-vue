@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <Breadcrumb :items="['menu.user', 'menu.user.setting']" />
     <a-row style="margin-bottom: 16px">
       <a-col :span="24">
         <UserPanel />
@@ -39,7 +38,7 @@
 
 <style scoped lang="less">
   .container {
-    padding: 0 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
   }
 
   .wrapper {

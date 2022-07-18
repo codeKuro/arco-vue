@@ -1,12 +1,6 @@
 <template>
   <div class="container">
-    <Breadcrumb
-      :items="['menu.authority', 'menu.authority.administratorsManagement']"
-    />
-    <a-card
-      class="general-card"
-      :title="$t('menu.authority.administratorsManagement')"
-    >
+    <a-card class="general-card" style="padding-top: 16px">
       <a-row style="margin-bottom: 16px">
         <a-col :span="16">
           <a-space>
@@ -475,7 +469,7 @@
 
 <style scoped lang="less">
   .container {
-    padding: 0 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
   }
 
   :deep(.arco-table-th) {

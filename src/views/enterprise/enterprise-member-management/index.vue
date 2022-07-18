@@ -1,13 +1,7 @@
 /* eslint-disable prefer-destructuring */
 <template>
   <div class="container">
-    <Breadcrumb
-      :items="['menu.enterprise', 'menu.enterprise.enterpriseMemberManagement']"
-    />
-    <a-card
-      class="general-card"
-      :title="$t('menu.enterprise.enterpriseMemberManagement')"
-    >
+    <a-card class="general-card" style="padding-top: 16px">
       <a-row style="margin-bottom: 16px">
         <a-col :flex="1">
           <a-form
@@ -251,7 +245,7 @@
 
 <style scoped lang="less">
   .container {
-    padding: 0 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
   }
 
   :deep(.arco-table-th) {

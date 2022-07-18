@@ -45,7 +45,7 @@ export default {
   'menu.authority': '权限管理',
   'menu.enterprise': '企业管理',
   'menu.server.Server': '服务管理',
-  'menu.server.MenuManagement': '菜单管理',
+  'menu.server.MenuManagement': '节点管理',
   'menu.server.Authority': '权限管理',
   'menu.server.RoleManagement': '角色管理',
   'menu.server.AdministratorsManagement': '管理员管理',

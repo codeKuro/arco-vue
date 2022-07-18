@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Breadcrumb :items="['menu.user', 'menu.user.info']" />
+    <!-- <Breadcrumb :items="['menu.user', 'menu.user.info']" /> -->
     <UserInfoHeader />
     <div class="content">
       <div class="content-left">
@@ -43,7 +43,7 @@
 
 <style scoped lang="less">
   .container {
-    padding: 0 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
   }
 
   .content {

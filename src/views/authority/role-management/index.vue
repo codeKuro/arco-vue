@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <Breadcrumb :items="['menu.authority', 'menu.authority.roleManagement']" />
-    <a-card class="general-card" :title="$t('menu.authority.roleManagement')">
+    <a-card class="general-card">
       <a-tabs
         v-model="activeKey"
         default-active-key="1"
@@ -591,7 +590,7 @@
 
 <style scoped lang="less">
   .container {
-    padding: 0 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
   }
 
   :deep(.arco-table-th) {
