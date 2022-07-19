@@ -554,7 +554,7 @@
       renderData.value = data.nodeTree;
       treeData.value = transformRoutes(data.nodeTree);
     } catch (err) {
-      // you can report use errorHandler or other
+      errorMessage.value = (err as Error).message;
     } finally {
       setLoading(false);
     }
@@ -616,7 +616,7 @@
       formRef.value?.setFields(rowTrans);
       visible.value = true;
     } catch (err) {
-      // you can report use errorHandler or other
+      errorMessage.value = (err as Error).message;
     } finally {
       setLoading(false);
     }
@@ -667,7 +667,7 @@
       Message.success(t('menuManagement.form.edit.success'));
       fetchData();
     } catch (err) {
-      // you can report use errorHandler or other
+      errorMessage.value = (err as Error).message;
     } finally {
       switchLoading.value = false;
     }

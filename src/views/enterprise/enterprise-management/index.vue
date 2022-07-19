@@ -1,6 +1,92 @@
 <template>
   <div class="container">
-    <a-card class="general-card" style="padding-top: 16px">
+    <div class="space-unit">
+      <a-card class="general-card">
+        <a-grid :cols="24" :col-gap="12" :row-gap="12">
+          <a-grid-item
+            :span="{ xs: 12, sm: 12, md: 12, lg: 12, xl: 6, xxl: 6 }"
+          >
+            <a-card
+              :border="false"
+              :style="{
+                background: isDark
+                  ? 'linear-gradient(180deg, #284991 0%, #122B62 100%)'
+                  : 'linear-gradient(180deg, #f2f9fe 0%, #e6f4fe 100%)',
+              }"
+            >
+              <a-statistic
+                :title="$t('enterpriseManagement.card.total')"
+                :value="renderDataCount.totalNum"
+                :value-from="0"
+                animation
+                show-group-separator
+              />
+            </a-card>
+          </a-grid-item>
+          <a-grid-item
+            :span="{ xs: 12, sm: 12, md: 12, lg: 12, xl: 6, xxl: 6 }"
+          >
+            <a-card
+              :border="false"
+              :style="{
+                background: isDark
+                  ? ' linear-gradient(180deg, #3D492E 0%, #263827 100%)'
+                  : 'linear-gradient(180deg, #F5FEF2 0%, #E6FEEE 100%)',
+              }"
+            >
+              <a-statistic
+                :title="$t('enterpriseManagement.card.multiTeam')"
+                :value="renderDataCount.multiTeamNum"
+                :value-from="0"
+                animation
+                show-group-separator
+              />
+            </a-card>
+          </a-grid-item>
+          <a-grid-item
+            :span="{ xs: 12, sm: 12, md: 12, lg: 12, xl: 6, xxl: 6 }"
+          >
+            <a-card
+              :border="false"
+              :style="{
+                background: isDark
+                  ? 'linear-gradient(180deg, #294B94 0%, #0F275C 100%)'
+                  : 'linear-gradient(180deg, #f2f9fe 0%, #e6f4fe 100%)',
+              }"
+            >
+              <a-statistic
+                :title="$t('enterpriseManagement.card.singleTeam')"
+                :value="renderDataCount.singleTeamNum"
+                :value-from="0"
+                animation
+                show-group-separator
+              />
+            </a-card>
+          </a-grid-item>
+          <a-grid-item
+            :span="{ xs: 12, sm: 12, md: 12, lg: 12, xl: 6, xxl: 6 }"
+          >
+            <a-card
+              :border="false"
+              :style="{
+                background: isDark
+                  ? 'linear-gradient(180deg, #312565 0%, #201936 100%)'
+                  : 'linear-gradient(180deg, #F7F7FF 0%, #ECECFF 100%)',
+              }"
+            >
+              <a-statistic
+                :title="$t('enterpriseManagement.card.disabled')"
+                :value="renderDataCount.disabledNum"
+                :value-from="0"
+                animation
+                show-group-separator
+              />
+            </a-card>
+          </a-grid-item>
+        </a-grid>
+      </a-card>
+    </div>
+    <a-card class="general-card" style="margin-top: 16px; padding-top: 16px">
       <a-row style="margin-bottom: 16px">
         <a-col :flex="1">
           <a-form
@@ -312,14 +398,17 @@
 <script lang="ts" setup>
   import { computed, ref, reactive } from 'vue';
   import { useI18n } from 'vue-i18n';
+  import useThemes from '@/hooks/themes';
   import useLoading from '@/hooks/loading';
   import { Message } from '@arco-design/web-vue';
   import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
   import {
     queryEnterpriseList,
     getEnterpriseRecord,
+    getEnterpriseCount,
     EnterpriseRecord,
     EnterpriseParams,
+    EnterpriseCountRes,
     createEnterpriseRecord,
     updateEnterpriseRecord,
   } from '@/api/enterprise';
@@ -347,10 +436,12 @@
       email: '',
     };
   };
+  const { isDark } = useThemes();
   const errorMessage = ref('');
   const { loading, setLoading } = useLoading(true);
   const { t } = useI18n();
   const renderData = ref<EnterpriseRecord[]>([]);
+  const renderDataCount = ref<EnterpriseCountRes[]>([]);
   const searchModel = ref(searchFormModel());
   const formRef = ref<FormInstance>();
   const formModel = ref(generateFormModel());
@@ -407,7 +498,7 @@
       pagination.page = params.page;
       pagination.total = data.total;
     } catch (err) {
-      // you can report use errorHandler or other
+      errorMessage.value = (err as Error).message;
     } finally {
       setLoading(false);
     }
@@ -433,6 +524,18 @@
     fetchData({ ...basePagination, page });
   };
   fetchData();
+  const fetchDataCount = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getEnterpriseCount();
+      renderDataCount.value = data;
+    } catch (err) {
+      errorMessage.value = (err as Error).message;
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchDataCount();
   const reset = () => {
     searchModel.value = searchFormModel();
   };
@@ -444,7 +547,7 @@
       formModel.value.maxTeamNum = data.maxTeamNum;
       formModel.value.maxMemberNum = data.maxMemberNum;
     } catch (err) {
-      // you can report use errorHandler or other
+      errorMessage.value = (err as Error).message;
     } finally {
       setLoading(false);
     }
@@ -502,7 +605,7 @@
       Message.success(t('enterpriseManagement.form.edit.success'));
       fetchData();
     } catch (err) {
-      // you can report use errorHandler or other
+      errorMessage.value = (err as Error).message;
     } finally {
       switchLoading.value = false;
     }
@@ -518,6 +621,11 @@
 <style scoped lang="less">
   .container {
     padding: 20px 20px 20px 20px;
+  }
+  .space-unit {
+    background-color: var(--color-bg-2);
+    padding-top: 20px;
+    border-radius: 4px;
   }
 
   :deep(.arco-table-th) {

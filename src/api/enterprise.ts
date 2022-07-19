@@ -49,6 +49,13 @@ export interface EnterpriseConfigRes {
   maxMemberNum: number;
 }
 
+export interface EnterpriseCountRes {
+  totalNum: number;
+  multiTeamNum: number;
+  singleTeamNum: number;
+  disabledNum: number;
+}
+
 export interface EnterpriseRecordRes {
   id: string;
 }
@@ -78,6 +85,14 @@ export function queryEnterpriseMemberList(params: EnterpriseParams) {
 
 export function getEnterpriseRecord() {
   return axios.get<EnterpriseConfigRes>('/admin/v1/company-rule', {
+    paramsSerializer: (obj) => {
+      return qs.stringify(obj);
+    },
+  });
+}
+
+export function getEnterpriseCount() {
+  return axios.get<EnterpriseCountRes>('/admin/v1/company-count', {
     paramsSerializer: (obj) => {
       return qs.stringify(obj);
     },

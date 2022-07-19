@@ -346,7 +346,7 @@
       pagination.page = params.page;
       pagination.total = data.total;
     } catch (err) {
-      // you can report use errorHandler or other
+      errorMessage.value = (err as Error).message;
     } finally {
       setLoading(false);
     }
@@ -357,7 +357,7 @@
       const { data } = await queryRoleList(params);
       roleData.value = transformRoutes(data.roleList);
     } catch (err) {
-      // you can report use errorHandler or other
+      errorMessage.value = (err as Error).message;
     } finally {
       setLoading(false);
     }
@@ -437,7 +437,7 @@
       Message.success(t('administratorsManagement.form.edit.success'));
       fetchData();
     } catch (err) {
-      // you can report use errorHandler or other
+      errorMessage.value = (err as Error).message;
     } finally {
       switchLoading.value = false;
     }
@@ -453,7 +453,7 @@
       Message.success(t('administratorsManagement.form.bind.success'));
       fetchData();
     } catch (err) {
-      // you can report use errorHandler or other
+      errorMessage.value = (err as Error).message;
     } finally {
       setLoading(false);
       loadingSubmit.value = false;

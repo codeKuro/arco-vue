@@ -1,5 +1,9 @@
 export default {
   'menu.enterprise.enterpriseManagement': 'Enterprise Management',
+  'enterpriseManagement.card.total': 'Total number of Enterprises',
+  'enterpriseManagement.card.multiTeam': 'Number of multi team Enterprises',
+  'enterpriseManagement.card.singleTeam': 'Number of single team Enterprises',
+  'enterpriseManagement.card.disabled': 'Number of inactive merchants',
   'enterpriseManagement.form.title': 'Title',
   'enterpriseManagement.form.title.add': 'Add Enterprise',
   'enterpriseManagement.form.title.edit': 'Edit Enterprise',

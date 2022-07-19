@@ -1,5 +1,9 @@
 export default {
   'menu.enterprise.enterpriseManagement': '企业管理',
+  'enterpriseManagement.card.total': '企业总数',
+  'enterpriseManagement.card.multiTeam': '多团队企业数',
+  'enterpriseManagement.card.singleTeam': '单团队企业数',
+  'enterpriseManagement.card.disabled': '停用商户数',
   'enterpriseManagement.form.title': '标题',
   'enterpriseManagement.form.title.add': '新增企业',
   'enterpriseManagement.form.title.edit': '编辑企业',
